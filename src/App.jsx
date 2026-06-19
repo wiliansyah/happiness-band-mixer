@@ -129,18 +129,21 @@ export default function App() {
           desc: 'Tarik Fader CH 1, Fader CH 2, dan Fader MASTER MERAH ke posisi paling bawah (0).',
           highlight: { fader1: true, fader2: true, faderMaster: true },
           check: () => channels[0].fader <= 5 && channels[1].fader <= 5 && faderMaster <= 5,
+          targetId: 'fader-master'
         },
         {
           action: 'Colok Kabel Input',
-          desc: 'Drag kabel Mic 1 (Biru) ke CH 1 dan kabel Mic 2 (Merah) ke CH 2 di rak atas.',
+          desc: 'Pilih kabel Mic 1 (Biru) lalu ketuk lubang CH 1. Pilih kabel Mic 2 (Merah) lalu ketuk lubang CH 2.',
           highlight: { jack1: true, jack2: true },
           check: () => channels[0].connected === 'mic1' && channels[1].connected === 'mic2',
+          targetId: 'jack-1'
         },
         {
           action: 'Nyalakan Power Mixer',
           desc: 'Tekan tombol POWER utama di sisi kanan.',
           highlight: { power: true },
           check: () => power === true,
+          targetId: 'btn-main-power'
         },
       ],
     },
@@ -154,24 +157,28 @@ export default function App() {
           desc: 'Di CH 1 (Mic), tekan HPF 80Hz. Di CH 2 (Gitar), tekan PAD 26dB.',
           highlight: { hpf1: true, pad2: true },
           check: () => channels[0].hpf && channels[1].pad,
+          targetId: 'btn-hpf-1'
         },
         {
           action: 'Hidupkan & Routing Channel',
           desc: 'Tekan tombol ON dan ST pada CH 1 dan CH 2.',
           highlight: { on1: true, st1: true, on2: true, st2: true },
           check: () => channels[0].on && channels[0].st && channels[1].on && channels[1].st,
+          targetId: 'btn-on-1'
         },
         {
           action: 'Buka Master Volume',
           desc: 'Geser Fader STEREO OUT (Merah) ke kisaran 70.',
           highlight: { faderMaster: true },
           check: () => faderMaster > 60,
+          targetId: 'fader-master'
         },
         {
           action: 'Naikkan Volume Alat',
           desc: 'Geser Fader CH 1 dan CH 2 ke atas (kisaran 50).',
           highlight: { fader1: true, fader2: true },
           check: () => channels[0].fader > 40 && channels[1].fader > 40,
+          targetId: 'fader-1'
         },
       ],
     },
@@ -185,18 +192,21 @@ export default function App() {
           desc: 'Tarik KEMBALI Fader CH 1, Fader CH 2, dan Fader MASTER MERAH ke 0.',
           highlight: { fader1: true, fader2: true, faderMaster: true },
           check: () => channels[0].fader === 0 && channels[1].fader === 0 && faderMaster === 0,
+          targetId: 'fader-master'
         },
         {
           action: 'Matikan Power Mixer',
           desc: 'Tekan saklar MAIN POWER untuk mematikan mixer.',
           highlight: { power: true },
           check: () => power === false,
+          targetId: 'btn-main-power'
         },
         {
           action: 'Cabut Kabel',
-          desc: 'Drag kabel CH 1 dan CH 2 menjauh (disconnect).',
+          desc: 'Ketuk lubang CH 1 dan CH 2 untuk mencabut kabel.',
           highlight: { jack1: true, jack2: true },
           check: () => !channels[0].connected && !channels[1].connected,
+          targetId: 'jack-1'
         },
       ],
     },
@@ -274,13 +284,15 @@ export default function App() {
           <ManualBook />
         ) : (
           <>
-            {/* LEFT PANEL */}
+            {/* LEFT PANEL / MAIN MENU OVERLAY */}
             <div className={`
-              w-full lg:w-[350px] bg-slate-900 border-b-2 lg:border-b-0 lg:border-r-2 border-slate-800 flex flex-col shadow-2xl z-10 shrink-0
-              ${activeScenario === 'menu' ? 'h-[35vh] lg:h-full' : 'h-auto max-h-[30vh] lg:h-full'}
+              ${activeScenario === 'menu' 
+                ? 'absolute inset-0 z-50 bg-slate-900/95 backdrop-blur-sm flex flex-col items-center justify-center p-4 lg:p-12 overflow-y-auto' 
+                : 'w-full lg:w-[350px] bg-slate-900 border-b-2 lg:border-b-0 lg:border-r-2 border-slate-800 flex flex-col shadow-2xl z-10 shrink-0 h-auto max-h-[30vh] lg:h-full'
+              }
             `}>
               
-              {/* Mobile Header for Menu State */}
+              {/* Scenario Progress (only when active) */}
               {activeScenario === 'menu' && (
                 <div className="bg-slate-800 p-2 border-b border-slate-700 flex justify-between items-center lg:hidden">
                   <span className="font-bold text-xs text-blue-400 flex items-center gap-2">
@@ -290,22 +302,24 @@ export default function App() {
               )}
 
               {/* Signal Dashboard */}
-              <div className={`p-2 lg:p-4 bg-slate-950/50 border-b border-slate-800 ${activeScenario !== 'menu' ? 'hidden lg:block' : 'block'}`}>
-                <h2 className="hidden lg:flex text-xs font-bold text-emerald-500 uppercase mb-3 gap-2 items-center tracking-wider">
-                  <Activity size={16} /> Signal Monitor
+              <div className={`
+                ${activeScenario === 'menu' ? 'w-full max-w-md bg-slate-900 border border-slate-700 shadow-2xl rounded-2xl mb-8 overflow-hidden' : 'p-2 lg:p-4 bg-slate-950/50 border-b border-slate-800 hidden lg:block'}
+              `}>
+                <h2 className={`${activeScenario === 'menu' ? 'flex bg-slate-800/50 p-4 border-b border-slate-700' : 'hidden lg:flex'} text-xs font-bold text-emerald-500 uppercase mb-0 gap-2 items-center tracking-wider`}>
+                  <Activity size={16} /> Signal Monitor {power ? '(LIVE)' : '(OFF)'}
                 </h2>
                 
-                <div className="space-y-3">
-                  <div className="bg-slate-900 rounded-lg p-3 border border-slate-700/50">
+                <div className={`space-y-3 ${activeScenario === 'menu' ? 'p-4' : 'mt-3'}`}>
+                  <div className="bg-slate-950/50 rounded-lg p-3 border border-slate-700/50 shadow-inner">
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-[10px] font-bold text-slate-400">MAIN POWER</span>
-                      <span className={`text-[10px] font-black px-2 py-0.5 rounded ${power ? 'bg-red-500/20 text-red-400' : 'bg-slate-800 text-slate-500'}`}>
+                      <span className={`text-[10px] font-black px-2 py-0.5 rounded ${power ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-slate-800 text-slate-500 border border-slate-700'}`}>
                         {power ? 'ON' : 'OFF'}
                       </span>
                     </div>
                   </div>
                   
-                  <div className="bg-slate-900 rounded-lg p-3 border border-slate-700/50">
+                  <div className="bg-slate-950/50 rounded-lg p-3 border border-slate-700/50 shadow-inner">
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-[10px] font-bold text-slate-400">SPEAKER OUT</span>
                       {peakWarn && (
@@ -314,7 +328,7 @@ export default function App() {
                         </span>
                       )}
                     </div>
-                    <div className="h-3 bg-slate-950 rounded-full overflow-hidden flex border border-black shadow-inner relative">
+                    <div className="h-3 bg-slate-900 rounded-full overflow-hidden flex border border-black shadow-inner relative">
                       <div className={`h-full transition-all duration-75 ${peakWarn ? 'bg-red-500' : 'bg-gradient-to-r from-emerald-500 via-yellow-400 to-red-500'}`} style={{ width: `${Math.min(signalMaster, 100)}%` }}></div>
                       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSJ0cmFuc3BhcmVudCIvPgo8cmVjdCB3aWR0aD0iMSIgaGVpZ2h0PSI0IiBmaWxsPSJyZ2JhKDAsMCwwLDAuNCkiLz4KPC9zdmc+')] opacity-50"></div>
                     </div>
@@ -323,13 +337,13 @@ export default function App() {
               </div>
 
               {/* SOP Panel */}
-              <div className="flex-1 p-2 lg:p-5 flex flex-col overflow-y-auto">
+              <div className={`flex flex-col overflow-y-auto ${activeScenario === 'menu' ? 'w-full max-w-md' : 'flex-1 p-2 lg:p-5'}`}>
                 {activeScenario === 'menu' ? (
-                  <div className="animate-in fade-in slide-in-from-bottom-2 p-3 lg:p-0">
-                    <h3 className="text-[13px] font-black text-slate-400 mb-4 flex items-center gap-2 tracking-widest uppercase">
-                      <BookOpen size={16} /> Modul Latihan SOP
+                  <div className="animate-in fade-in slide-in-from-bottom-4">
+                    <h3 className="text-sm font-black text-slate-300 mb-4 flex items-center gap-2 tracking-widest uppercase justify-center">
+                      <BookOpen size={18} className="text-blue-500" /> Pilih Modul Latihan
                     </h3>
-                    <div className="flex flex-col gap-3">
+                    <div className="flex flex-col gap-4">
                       {Object.values(scenarios).map((sc) => (
                         <button
                           key={sc.id}
@@ -337,14 +351,19 @@ export default function App() {
                             setActiveScenario(sc.id);
                             setSopStep(0);
                           }}
-                          className="text-left p-3 lg:p-4 rounded-xl border border-slate-700 hover:border-blue-500 hover:bg-slate-800 transition-all flex items-center gap-3 lg:gap-4 bg-slate-800/50 shadow-md group"
+                          className="text-left p-5 rounded-2xl border border-slate-700 hover:border-blue-500 hover:bg-slate-800/80 transition-all flex items-center gap-5 bg-slate-900 shadow-xl group hover:shadow-blue-500/10"
                         >
-                          <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner shrink-0">
+                          <div className="w-12 h-12 rounded-full bg-slate-950 border border-slate-700 flex items-center justify-center group-hover:scale-110 group-hover:border-blue-500/50 transition-transform shadow-inner shrink-0">
                             {sc.icon}
                           </div>
-                          <h4 className="font-bold text-slate-200 text-xs lg:text-sm tracking-wide">
-                            {sc.title}
-                          </h4>
+                          <div>
+                            <h4 className="font-bold text-slate-100 text-base tracking-wide mb-1 group-hover:text-blue-400 transition-colors">
+                              {sc.title}
+                            </h4>
+                            <p className="text-xs text-slate-500 font-medium">
+                              {sc.steps.length} Langkah Pembelajaran
+                            </p>
+                          </div>
                         </button>
                       ))}
                     </div>
@@ -401,7 +420,7 @@ export default function App() {
                       
                       {sopStep === scenarios[activeScenario].steps.length - 1 && scenarios[activeScenario].steps[sopStep].check() ? (
                         <button
-                          onClick={() => setActiveScenario('menu')}
+                          onClick={quitScenario}
                           className="px-4 py-3 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-500 flex-[3] text-sm shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all flex items-center justify-center gap-2 tracking-wide"
                         >
                           Selesai <Check size={18} />

@@ -1,4 +1,5 @@
 import React from 'react';
+// Force rebuild MasterSection
 import { Power, MonitorSpeaker } from 'lucide-react';
 import { ToggleBtn } from './ToggleBtn';
 import { Fader } from './Fader';

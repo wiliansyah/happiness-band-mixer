@@ -1,4 +1,5 @@
 import React from 'react';
+// Force rebuild ChannelStrip
 import { Knob } from './Knob';
 import { Fader } from './Fader';
 import { ToggleBtn } from './ToggleBtn';
@@ -92,6 +93,7 @@ export const ChannelStrip = ({
             onClick={() => handleUpdate('pad', !state.pad)}
             highlight={isHigh(`pad${num}`)}
             disabled={disabled}
+            id={`btn-pad-${num}`}
           />
           <ToggleBtn
             label="80Hz"
@@ -101,6 +103,7 @@ export const ChannelStrip = ({
             onClick={() => handleUpdate('hpf', !state.hpf)}
             highlight={isHigh(`hpf${num}`)}
             disabled={disabled}
+            id={`btn-hpf-${num}`}
           />
         </div>
       )}
@@ -110,11 +113,12 @@ export const ChannelStrip = ({
       <div className="flex flex-col gap-3 w-full items-center px-1">
         <Knob
           label="GAIN"
-          colorClass="bg-gray-200"
+          colorClass="bg-slate-200"
           value={state.gain}
           onChange={(v) => handleUpdate('gain', v)}
           highlight={isHigh(`gain${num}`)}
           disabled={disabled}
+          id={`knob-gain-${num}`}
         />
         
         {/* PEAK Indicator */}
@@ -136,6 +140,7 @@ export const ChannelStrip = ({
             value={state.comp}
             onChange={(v) => handleUpdate('comp', v)}
             disabled={disabled}
+            id={`knob-comp-${num}`}
           />
         )}
 
@@ -146,8 +151,7 @@ export const ChannelStrip = ({
           colorClass="bg-green-500"
           value={state.eqH}
           onChange={(v) => handleUpdate('eqH', v)}
-          size="small"
-          center={true}
+          id={`knob-eqh-${num}`}
           disabled={disabled}
         />
         <Knob
@@ -199,6 +203,7 @@ export const ChannelStrip = ({
               onClick={() => handleUpdate('on', !state.on)}
               highlight={isHigh(`on${num}`)}
               disabled={disabled}
+              id={`btn-on-${num}`}
             />
             <div className="flex flex-col gap-1.5">
               <ToggleBtn
@@ -209,6 +214,7 @@ export const ChannelStrip = ({
                 onClick={() => handleUpdate('st', !state.st)}
                 highlight={isHigh(`st${num}`)}
                 disabled={disabled}
+                id={`btn-st-${num}`}
               />
               <ToggleBtn
                 label="PFL"
@@ -228,6 +234,7 @@ export const ChannelStrip = ({
             onChange={(v) => handleUpdate('fader', v)}
             highlight={isHigh(`fader${num}`)}
             disabled={disabled}
+            id={`fader-${num}`}
           />
         </div>
       </div>
