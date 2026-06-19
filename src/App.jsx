@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Power, SlidersHorizontal, Activity, Mic2, Guitar, BookOpen, AlertTriangle, CheckCircle2, ChevronRight, ChevronLeft, Check, Plug, Disc3, Piano, FileText } from 'lucide-react';
+import { Power, SlidersHorizontal, Activity, Mic2, Guitar, BookOpen, AlertTriangle, CheckCircle2, ChevronRight, ChevronLeft, ChevronUp, ChevronDown, Check, Plug, Disc3, Piano, FileText } from 'lucide-react';
 import { ChannelStrip } from './components/ChannelStrip';
 import { MasterSection } from './components/MasterSection';
 import { ManualBook } from './components/ManualBook';
@@ -28,6 +28,7 @@ export default function App() {
   const [phantom, setPhantom] = useState(false);
   const [faderMaster, setFaderMaster] = useState(70); // Starts high to trigger SOP step 1
   const [selectedCable, setSelectedCable] = useState(null);
+  const [isSopMinimized, setIsSopMinimized] = useState(false);
 
   // Drag-to-Scroll State
   const scrollRef = useRef(null);
@@ -275,12 +276,24 @@ export default function App() {
           <>
             {/* LEFT PANEL */}
             <div className={`
-              ${activeScenario !== 'menu' 
-                ? 'absolute bottom-4 left-4 right-4 rounded-xl border-2 border-blue-500/50 shadow-[0_0_30px_rgba(0,0,0,0.8)] max-h-[45%] lg:max-h-none lg:static lg:w-[350px] lg:border-y-0 lg:border-l-0 lg:border-r-2 lg:border-slate-800 lg:rounded-none lg:shadow-2xl' 
-                : 'w-full lg:w-[350px] h-[30%] lg:h-full border-b-2 lg:border-b-0 lg:border-r-2 border-slate-800'
-              } 
-              bg-slate-900 flex flex-col z-40 shrink-0 overflow-y-auto transition-all duration-300
+              absolute bottom-4 left-4 right-4 rounded-xl border-2 border-blue-500/50 shadow-[0_0_30px_rgba(0,0,0,0.8)] z-40 transition-all duration-300 flex flex-col bg-slate-900 shrink-0
+              lg:static lg:bottom-auto lg:left-auto lg:right-auto lg:w-[350px] lg:h-full lg:border-y-0 lg:border-l-0 lg:border-r-2 lg:border-slate-800 lg:rounded-none lg:shadow-2xl
+              ${isSopMinimized ? 'max-h-[50px] lg:max-h-none overflow-hidden' : 'max-h-[60vh] lg:max-h-none overflow-y-auto'}
             `}>
+              
+              {/* Mobile Widget Header (Toggleable) */}
+              <div 
+                className="bg-slate-800 p-3 border-b border-slate-700 flex justify-between items-center lg:hidden sticky top-0 z-10 cursor-pointer shadow-md"
+                onClick={() => setIsSopMinimized(!isSopMinimized)}
+              >
+                <span className="font-bold text-sm text-blue-400 flex items-center gap-2">
+                  {activeScenario === 'menu' ? <><Activity size={16}/> Dashboard & Menu</> : <><BookOpen size={16}/> Panduan Aktif</>}
+                </span>
+                <button className="text-slate-400 hover:text-white transition-colors">
+                  {isSopMinimized ? <ChevronUp size={20}/> : <ChevronDown size={20}/>}
+                </button>
+              </div>
+
               {/* Signal Dashboard */}
               <div className={`p-4 bg-slate-950/50 border-b border-slate-800 ${activeScenario !== 'menu' ? 'hidden lg:block' : 'block'}`}>
                 <h2 className="text-xs font-bold text-emerald-500 uppercase mb-3 flex gap-2 items-center tracking-wider">
@@ -416,7 +429,7 @@ export default function App() {
               onMouseLeave={handleMouseLeave}
               onMouseUp={handleMouseUp}
               onMouseMove={handleMouseMove}
-              className={`flex-1 bg-slate-950 p-4 md:p-8 pb-32 flex items-start lg:items-center justify-start overflow-auto relative shadow-[inset_0_0_100px_rgba(0,0,0,1)] ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+              className={`flex-1 w-full h-full bg-slate-950 p-4 md:p-8 pb-32 flex items-start lg:items-center justify-start overflow-auto relative shadow-[inset_0_0_100px_rgba(0,0,0,1)] ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
             >
               
               <div className="bg-[#1a1f2b] p-4 md:p-8 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.9),inset_0_2px_4px_rgba(255,255,255,0.1)] border-t-[12px] border-slate-700 flex gap-4 md:gap-2 border-x-4 border-b-[12px] border-x-slate-800 border-b-slate-900 min-w-max relative overflow-hidden mb-8">
