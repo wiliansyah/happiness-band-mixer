@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  FileText,
-  Printer,
-  ShieldAlert,
-  CheckCircle2,
-  Sliders,
-  Activity,
-  Power,
-} from 'lucide-react';
+import { FileText, Printer, ShieldAlert, CheckCircle2, Sliders, Activity, Power, Volume2, Waves, Headphones, Zap } from 'lucide-react';
 import { Knob } from './Knob';
 import { Fader } from './Fader';
 import { ToggleBtn } from './ToggleBtn';
@@ -18,459 +10,359 @@ export const ManualBook = () => {
   };
 
   return (
-    <div className="flex-1 bg-[#0f172a] overflow-y-auto p-4 md:p-8 relative">
-      {/* Floating Action Button for Print */}
-      <button
+    <div className="flex-1 bg-slate-200 overflow-y-auto p-4 md:p-8 relative font-sans">
+      <button 
         onClick={handlePrint}
-        className="fixed bottom-8 right-8 bg-blue-600 hover:bg-blue-500 text-white p-4 rounded-full shadow-[0_0_20px_rgba(37,99,235,0.5)] flex items-center gap-2 font-bold transition-transform hover:scale-110 z-50 print:hidden border border-blue-400"
+        className="fixed bottom-8 right-8 bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 rounded-full shadow-2xl flex items-center gap-3 font-black tracking-wider transition-all hover:scale-105 z-50 print:hidden border-2 border-white/20"
       >
         <Printer size={24} />
-        Cetak PDF
+        CETAK DOKUMEN
       </button>
 
-      <div className="max-w-5xl mx-auto bg-slate-900 shadow-2xl rounded-2xl p-8 md:p-14 text-slate-300 font-sans leading-relaxed border border-slate-700 print:shadow-none print:p-0 print:bg-white print:text-black">
-        <div className="text-center border-b-4 border-slate-700 pb-8 mb-10">
-          <h1 className="text-4xl font-black uppercase tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 mb-4 print:text-black">
-            Buku Panduan Operasional & Manajemen Mixer
+      <div className="max-w-5xl mx-auto bg-white shadow-2xl rounded-xl text-slate-800 leading-relaxed print:shadow-none print:bg-white print:text-black overflow-hidden border border-slate-300">
+        
+        {/* HEADER SECTION */}
+        <div className="bg-slate-900 text-white p-10 md:p-16 text-center relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-600 via-emerald-500 to-yellow-500"></div>
+          <Sliders size={64} className="mx-auto mb-6 text-blue-400" />
+          <h1 className="text-3xl md:text-5xl font-black uppercase tracking-widest mb-4 relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">
+            Buku Panduan Operasional
           </h1>
-          <p className="text-xl text-slate-400 font-bold tracking-wide">
-            Spesifikasi Unit: YAMAHA MG16XU Professional Audio Mixing Console
+          <div className="w-24 h-1 bg-blue-500 mx-auto mb-6 rounded-full"></div>
+          <p className="text-lg md:text-2xl text-blue-300 font-bold tracking-wide relative z-10 mb-4">
+            YAMAHA MG16XU Mixing Console
+          </p>
+          <p className="text-sm md:text-md text-slate-400 font-medium max-w-2xl mx-auto">
+            Panduan teknis dan visual komprehensif untuk penguasaan arsitektur tata suara panggung & studio.
           </p>
         </div>
 
-        {/* REGULASI */}
-        <div className="bg-slate-800/80 border-l-4 border-blue-500 p-6 mb-8 rounded-r-xl shadow-lg">
-          <h3 className="font-black text-blue-400 uppercase mb-4 flex items-center gap-3 text-lg tracking-wider">
-            <FileText size={24} />
-            Regulasi & Ketentuan Fasilitas Studio
-          </h3>
-          <ul className="list-disc pl-6 space-y-3 text-slate-300 font-medium text-md">
-            <li>
-              <span className="text-white font-bold">
-                Ketersediaan Alat Tetap:
-              </span>{' '}
-              Studio hanya menyediakan 1 Unit Mixer (Yamaha MG16XU), 1 Set
-              Acoustic/Digital Drum, dan 2 Unit Microphone Standar.
-            </li>
-            <li>
-              <span className="text-white font-bold">Instrumen Pribadi:</span>{' '}
-              Pengguna wajib membawa instrumen mandiri beserta kelengkapannya.
-            </li>
-            <li>
-              <span className="text-white font-bold">
-                Sistem Integrasi Kabel:
-              </span>{' '}
-              Seluruh ujung jack audio input telah dilengkapi dengan label
-              permanen (contoh: Mic 1, Gitar, Bass). Hubungkan instrumen merujuk
-              pada label tersebut di area <strong>RAK KABEL</strong>.
-            </li>
-          </ul>
-        </div>
-
-        {/* WARNING */}
-        <div className="bg-red-950/30 border-l-4 border-red-500 p-6 mb-12 rounded-r-xl shadow-lg relative overflow-hidden">
-          <ShieldAlert
-            size={100}
-            className="absolute -right-6 -bottom-6 text-red-500/10"
-          />
-          <h3 className="font-black text-red-400 uppercase mb-3 flex items-center gap-2 text-lg tracking-wider">
-            <ShieldAlert size={24} />
-            Peringatan Batasan Risiko Kerja
-          </h3>
-          <p className="text-red-200 m-0 font-medium text-md leading-loose">
-            Kelalaian dalam menerapkan urutan pengaktifan (Turn-On) atau
-            penonaktifan (Turn-Off) daya dapat memicu letupan keras (Popping
-            Sound). Kejadian ini berisiko fatal merusak membran internal speaker
-            studio hingga jebol.{' '}
-            <strong>
-              Seluruh pengguna diwajibkan memahami SOP pada Bab 1 buku ini.
-            </strong>
-          </p>
-        </div>
-
-        {/* BAB 1 */}
-        <div className="mb-14">
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center border border-slate-600 shadow-inner">
-              <CheckCircle2 size={28} className="text-emerald-400" />
+        <div className="p-6 md:p-12 space-y-16 bg-slate-50">
+          
+          {/* PERINGATAN RISIKO */}
+          <div className="bg-red-50 border-l-[8px] border-red-600 p-8 rounded-r-xl shadow-md relative overflow-hidden flex flex-col md:flex-row gap-6 items-center md:items-start">
+            <div className="bg-red-100 p-5 rounded-full shrink-0 shadow-inner">
+              <ShieldAlert size={48} className="text-red-600" />
             </div>
-            <h2 className="text-2xl font-black uppercase text-white tracking-widest">
-              Bab 1: Protokol Standar Operasional Prosedur (SOP)
-            </h2>
-          </div>
-          <p className="mb-8 text-slate-400 font-medium text-lg">
-            Seluruh pengguna studio wajib mematuhi tiga urutan fase operasional
-            di bawah ini secara disiplin demi menjaga keamanan sistem sirkuit
-            elektronik audio:
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Fase 1 */}
-            <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 hover:border-emerald-500 transition-colors">
-              <h4 className="font-black text-emerald-400 uppercase mb-4 pb-3 border-b border-slate-700 flex items-center gap-2">
-                <Power size={18} /> Fase 1: Power-ON
-              </h4>
-              <ol className="list-decimal pl-5 space-y-3 text-slate-300 font-medium text-sm">
-                <li>
-                  Tarik <strong>Seluruh Fader (Putih & Merah)</strong> ke posisi
-                  paling bawah (0 mutlak).
-                </li>
-                <li>Colok kabel instrumen ke ujung jack mixer.</li>
-                <li>
-                  Tekan tombol master <strong>POWER MIXER</strong>.
-                </li>
-                <li>Nyalakan amplifier instrumen masing-masing.</li>
-              </ol>
-            </div>
-
-            {/* Fase 2 */}
-            <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 hover:border-blue-500 transition-colors">
-              <h4 className="font-black text-blue-400 uppercase mb-4 pb-3 border-b border-slate-700 flex items-center gap-2">
-                <Activity size={18} /> Fase 2: Soundcheck
-              </h4>
-              <ol className="list-decimal pl-5 space-y-3 text-slate-300 font-medium text-sm">
-                <li>
-                  Dorong <strong>Fader STEREO OUT (Merah)</strong> ke kisaran
-                  70-80.
-                </li>
-                <li>
-                  Tekan tombol <strong>ON</strong> dan <strong>ST</strong> pada
-                  channel.
-                </li>
-                <li>
-                  Dorong <strong>Fader Channel (Putih)</strong> ke atas secara
-                  bertahap.
-                </li>
-                <li>
-                  Putar <strong>GAIN</strong> jika suara kurang keras, awasi
-                  lampu PEAK.
-                </li>
-              </ol>
-            </div>
-
-            {/* Fase 3 */}
-            <div className="bg-slate-800/50 p-6 rounded-xl border border-slate-700 hover:border-red-500 transition-colors">
-              <h4 className="font-black text-red-400 uppercase mb-4 pb-3 border-b border-slate-700 flex items-center gap-2">
-                <Power size={18} /> Fase 3: Power-OFF
-              </h4>
-              <ol className="list-decimal pl-5 space-y-3 text-slate-300 font-medium text-sm">
-                <li>
-                  Tarik kembali <strong>Seluruh Fader (Putih & Merah)</strong>{' '}
-                  ke posisi 0.
-                </li>
-                <li>Matikan unit Speaker & Amplifier instrumen.</li>
-                <li>
-                  Tekan tombol <strong>POWER MIXER</strong> untuk mematikan
-                  mixer.
-                </li>
-                <li>Cabut seluruh kabel instrumen.</li>
-              </ol>
+            <div>
+              <h3 className="font-black text-red-700 uppercase mb-3 text-2xl tracking-wider">
+                Protokol Keamanan Hardware
+              </h3>
+              <p className="text-red-900 m-0 font-medium text-lg leading-relaxed">
+                <strong>Kesalahan urutan Power ON/OFF</strong> memicu <i>Power Surge</i> (lonjakan listrik tiba-tiba). Letupan ini sangat berbahaya dan dapat <strong className="bg-red-200 px-1 rounded">merobek membran speaker studio</strong> seketika. Seluruh musisi dan teknisi diwajibkan menghafal sekuens Bab 1 di bawah ini.
+              </p>
             </div>
           </div>
-        </div>
 
-        {/* BAB 2 */}
-        <div className="mb-14">
-          <div className="flex items-center gap-4 mb-8">
-            <div className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center border border-slate-600 shadow-inner">
-              <Sliders size={28} className="text-yellow-400" />
-            </div>
-            <h2 className="text-2xl font-black uppercase text-white tracking-widest">
-              Bab 2: Anatomi Input Atas (Channel Strip I)
-            </h2>
-          </div>
-
-          <div className="space-y-6">
-            {/* Component Item */}
-            <div className="flex bg-slate-800/30 p-6 rounded-xl border border-slate-700 items-center gap-8">
-              <div className="w-24 shrink-0 flex justify-center">
-                <ToggleBtn
-                  label="PAD"
-                  type="small-rect"
-                  active={true}
-                  disabled={true}
-                />
+          {/* BAB 1: SOP */}
+          <div>
+            <div className="flex items-center gap-4 mb-8 border-b-2 border-slate-300 pb-4">
+              <div className="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center border-2 border-emerald-500 shadow-sm">
+                <CheckCircle2 size={32} className="text-emerald-600" />
               </div>
-              <div>
-                <h3 className="text-xl font-bold text-white mb-2">
-                  PAD Switch (26dB)
+              <h2 className="text-3xl font-black uppercase text-slate-800 tracking-widest">
+                Bab 1: Sekuens Operasional
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* FASE 1 */}
+              <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-lg flex flex-col gap-6 relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-2 bg-emerald-500"></div>
+                <h3 className="text-xl font-black text-emerald-700 tracking-widest text-center border-b border-slate-100 pb-4">
+                  FASE 1: TURN ON
                 </h3>
-                <p className="text-slate-400 font-medium">
-                  Melemahkan amplitudo sinyal input sebesar 26dB. Biarkan tidak
-                  aktif (ke atas) untuk mic vokal. Tekan ke dalam untuk
-                  instrumen berdaya aktif tinggi (Keyboard / Gitar Bass aktif)
-                  agar suara tidak pecah/distorsi di tahap awal.
-                </p>
-              </div>
-            </div>
-
-            {/* Component Item */}
-            <div className="flex bg-slate-800/30 p-6 rounded-xl border border-slate-700 items-center gap-8">
-              <div className="w-24 shrink-0 flex justify-center">
-                <ToggleBtn
-                  label="HPF"
-                  type="small-rect"
-                  active={true}
-                  disabled={true}
-                />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-white mb-2">
-                  HPF Switch (80Hz)
-                </h3>
-                <p className="text-slate-400 font-medium">
-                  High-Pass Filter. Memblokir frekuensi rendah di bawah 80Hz.{' '}
-                  <strong>WAJIB ditekan</strong> untuk channel Mic Vokal guna
-                  mereduksi noise getaran langkah kaki atau hembusan napas.
-                  Jangan ditekan untuk Bass atau Kick Drum karena akan
-                  menghilangkan karakter low-nya.
-                </p>
-              </div>
-            </div>
-
-            {/* Component Item */}
-            <div className="flex bg-slate-800/30 p-6 rounded-xl border border-slate-700 items-center gap-8">
-              <div className="w-24 shrink-0 flex justify-center">
-                <div className="scale-125 transform origin-center">
-                  <Knob
-                    label="GAIN"
-                    colorClass="knob-cap-white"
-                    value={50}
-                    disabled={true}
-                  />
+                <ol className="list-decimal pl-5 space-y-4 text-slate-700 font-bold text-md">
+                  <li className="pl-2">Tarik <span className="text-red-600 font-black">Semua Fader</span> ke dasar (0).</li>
+                  <li className="pl-2">Colok kabel Instrumen/Mic.</li>
+                  <li className="pl-2">Tekan tombol <span className="bg-slate-800 text-white px-2 py-1 rounded text-xs">POWER MIXER</span>.</li>
+                  <li className="pl-2">Nyalakan Power Amp / Speaker.</li>
+                </ol>
+                <div className="mt-auto p-4 bg-slate-50 rounded-xl border border-slate-200 text-sm font-medium text-slate-600 text-center">
+                  Speaker menyala paling akhir agar aman dari tegangan awal.
                 </div>
               </div>
-              <div>
-                <h3 className="text-xl font-bold text-white mb-2">
-                  GAIN Control
-                </h3>
-                <p className="text-slate-400 font-medium">
-                  Tingkat sensitivitas pre-amp utama. Posisi standar berada di
-                  kisaran <strong>Jam 10 hingga 12</strong>. Dilarang keras
-                  memutar knob ini secara penuh karena akan memicu sinyal
-                  terpotong (Clipping) yang berbahaya bagi sistem speaker.
-                </p>
-              </div>
-            </div>
 
-            {/* Component Item */}
-            <div className="flex bg-slate-800/30 p-6 rounded-xl border border-slate-700 items-center gap-8">
-              <div className="w-24 shrink-0 flex justify-center">
-                <div className="scale-125 transform origin-center">
-                  <Knob
-                    label="COMP"
-                    colorClass="knob-cap-yellow"
-                    value={30}
-                    disabled={true}
-                  />
+              {/* FASE 2 */}
+              <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-lg flex flex-col gap-6 relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-2 bg-blue-500"></div>
+                <h3 className="text-xl font-black text-blue-700 tracking-widest text-center border-b border-slate-100 pb-4">
+                  FASE 2: SOUNDCHECK
+                </h3>
+                <ol className="list-decimal pl-5 space-y-4 text-slate-700 font-bold text-md">
+                  <li className="pl-2">Dorong <span className="text-red-600 font-black">Fader STEREO</span> ke 70.</li>
+                  <li className="pl-2">Tekan tombol <span className="text-orange-500 font-black">ON</span> & <span className="text-red-500 font-black">ST</span>.</li>
+                  <li className="pl-2">Dorong Fader Channel ke garis 0.</li>
+                  <li className="pl-2">Putar <span className="text-blue-600 font-black">GAIN</span> secukupnya.</li>
+                </ol>
+                <div className="mt-auto p-4 bg-slate-50 rounded-xl border border-slate-200 text-sm font-medium text-slate-600 text-center">
+                  Set Fader di Unity Gain (0) menjamin kualitas dinamis terbaik.
                 </div>
               </div>
-              <div>
-                <h3 className="text-xl font-bold text-white mb-2">
-                  COMP (Compressor)
+
+              {/* FASE 3 */}
+              <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-lg flex flex-col gap-6 relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-2 bg-red-500"></div>
+                <h3 className="text-xl font-black text-red-700 tracking-widest text-center border-b border-slate-100 pb-4">
+                  FASE 3: TURN OFF
                 </h3>
-                <p className="text-slate-400 font-medium">
-                  Sistem kompresor 1-knob Yamaha. Berfungsi meratakan dinamika
-                  volume (menekan suara terlalu keras, mengangkat suara yang
-                  terlalu pelan). Gunakan proporsional untuk vokal pada{' '}
-                  <strong>Jam 9 - 10</strong>. Untuk instrumen yang sudah
-                  menggunakan efek kompresor sendiri, biarkan di angka 0.
-                </p>
+                <ol className="list-decimal pl-5 space-y-4 text-slate-700 font-bold text-md">
+                  <li className="pl-2">Tarik turun <span className="text-red-600 font-black">Semua Fader</span> ke 0.</li>
+                  <li className="pl-2">Matikan Power Amp / Speaker.</li>
+                  <li className="pl-2">Matikan <span className="bg-slate-800 text-white px-2 py-1 rounded text-xs">POWER MIXER</span>.</li>
+                  <li className="pl-2">Cabut seluruh kabel.</li>
+                </ol>
+                <div className="mt-auto p-4 bg-slate-50 rounded-xl border border-slate-200 text-sm font-medium text-slate-600 text-center">
+                  Speaker dimatikan awal agar tidak menangkap letupan listrik mati.
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* BAB 3 */}
-        <div className="mb-14">
-          <div className="flex items-center gap-4 mb-8">
-            <div className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center border border-slate-600 shadow-inner">
-              <Sliders size={28} className="text-purple-400" />
-            </div>
-            <h2 className="text-2xl font-black uppercase text-white tracking-widest">
-              Bab 3: Equalizer & Monitor (Channel Strip II)
-            </h2>
-          </div>
-
-          <div className="space-y-6">
-            {/* Component Item */}
-            <div className="flex bg-slate-800/30 p-6 rounded-xl border border-slate-700 items-center gap-8">
-              <div className="w-24 shrink-0 flex flex-col justify-center gap-4">
-                <Knob
-                  label="HIGH"
-                  colorClass="knob-cap-green"
-                  value={50}
-                  disabled={true}
-                />
-                <Knob
-                  label="MID"
-                  colorClass="knob-cap-green"
-                  value={50}
-                  disabled={true}
-                />
+          {/* BAB 2: PRE-AMP */}
+          <div>
+            <div className="flex items-center gap-4 mb-8 border-b-2 border-slate-300 pb-4">
+              <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center border-2 border-blue-500 shadow-sm">
+                <Zap size={32} className="text-blue-600" />
               </div>
-              <div>
-                <h3 className="text-xl font-bold text-white mb-2">
-                  3-Band Equalizer (HIGH, MID, LOW)
-                </h3>
-                <p className="text-slate-400 font-medium">
-                  Pengaturan pemerataan frekuensi (Treble, Middle, Bass).
-                  Setelan awal sangat diwajibkan berada di{' '}
-                  <strong>Jam 12 (Posisi Tengah / Flat)</strong>. Putar sedikit
-                  ke kiri atau kanan saja jika diperlukan penyesuaian karakter
-                  suara dari panggung.
-                </p>
-              </div>
+              <h2 className="text-3xl font-black uppercase text-slate-800 tracking-widest">
+                Bab 2: Anatomi Pre-Amp (Input)
+              </h2>
             </div>
 
-            {/* Component Item */}
-            <div className="flex bg-slate-800/30 p-6 rounded-xl border border-slate-700 items-center gap-8">
-              <div className="w-24 shrink-0 flex justify-center">
-                <div className="scale-125 transform origin-center">
-                  <Knob
-                    label="AUX 1"
-                    colorClass="knob-cap-blue"
-                    value={40}
-                    disabled={true}
-                  />
+            <div className="space-y-8">
+              {/* PAD & HPF */}
+              <div className="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden">
+                <div className="grid grid-cols-1 lg:grid-cols-12">
+                  <div className="lg:col-span-4 bg-[#1a1f2b] p-8 flex justify-center items-center gap-8 border-b lg:border-b-0 lg:border-r-[6px] border-slate-800 min-h-[200px] relative">
+                    <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
+                    <div className="z-10 flex flex-col items-center gap-2">
+                      <ToggleBtn label="PAD" type="small-rect" active={false} disabled={true} />
+                      <span className="text-xs text-slate-400 font-bold">26dB</span>
+                    </div>
+                    <div className="z-10 flex flex-col items-center gap-2">
+                      <ToggleBtn label="HPF" type="small-rect" active={true} disabled={true} />
+                      <span className="text-xs text-slate-400 font-bold">80Hz</span>
+                    </div>
+                  </div>
+                  <div className="lg:col-span-8 p-8 flex flex-col justify-center">
+                    <h3 className="text-2xl font-black text-slate-800 mb-4">PAD & HPF Filter</h3>
+                    <div className="space-y-4">
+                      <p className="text-slate-600 text-lg leading-relaxed">
+                        <span className="bg-slate-200 text-slate-800 px-2 py-1 rounded font-bold mr-2">PAD Switch</span> 
+                        Berfungsi sebagai "rem" sinyal. Memotong power masuk sebesar 26dB. Wajib ditekan jika mencolok Instrumen Aktif (Keyboard/Bass Aktif) agar suara tidak pecah/<i>clipping</i> seketika.
+                      </p>
+                      <p className="text-slate-600 text-lg leading-relaxed">
+                        <span className="bg-slate-200 text-slate-800 px-2 py-1 rounded font-bold mr-2">HPF (High-Pass)</span> 
+                        Memotong frekuensi sub-bass. Wajib ditekan untuk Mic Vokal guna menghilangkan suara dengung (*rumble*) dari hembusan napas atau langkah kaki di panggung.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div>
-                <h3 className="text-xl font-bold text-white mb-2">
-                  AUX 1 / AUX 2 Send
-                </h3>
-                <p className="text-slate-400 font-medium">
-                  Mengirimkan salinan suara spesifik channel tersebut ke jalur
-                  keluaran lain, biasanya{' '}
-                  <strong>Speaker Monitor Lantai</strong> penyanyi. Putar
-                  perlahan menuju Jam 12 jika pemain mengeluhkan suaranya tidak
-                  terdengar di atas panggung.
-                </p>
-              </div>
-            </div>
 
-            {/* Component Item */}
-            <div className="flex bg-slate-800/30 p-6 rounded-xl border border-slate-700 items-center gap-8">
-              <div className="w-24 shrink-0 flex justify-center">
-                <div className="scale-125 transform origin-center">
-                  <Knob
-                    label="PAN"
-                    colorClass="knob-cap-red"
-                    value={50}
-                    disabled={true}
-                  />
+              {/* GAIN */}
+              <div className="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden">
+                <div className="grid grid-cols-1 lg:grid-cols-12">
+                  <div className="lg:col-span-4 bg-[#1a1f2b] p-8 flex justify-center items-center border-b lg:border-b-0 lg:border-r-[6px] border-slate-800 min-h-[220px] relative">
+                    <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
+                    <div className="z-10 scale-125">
+                      <Knob label="GAIN" colorClass="knob-cap-white" value={45} disabled={true} />
+                    </div>
+                  </div>
+                  <div className="lg:col-span-8 p-8 flex flex-col justify-center">
+                    <h3 className="text-2xl font-black text-slate-800 mb-4">GAIN (Sensitivitas Headroom)</h3>
+                    <p className="text-slate-600 text-lg leading-relaxed mb-4">
+                      Gain <strong className="text-red-600">bukanlah</strong> pengatur volume akhir. Gain menetapkan seberapa sensitif *mixer* "mendengar" instrumen. Jika diputar terlalu mentok ke kanan, sirkuit akan meledak secara elektronik (suara cacat/<i>Distortion</i>). Posisi teraman biasanya di arah Jam 10 hingga 12.
+                    </p>
+                    <div className="bg-blue-50 border border-blue-200 p-4 rounded-xl">
+                      <p className="text-blue-800 font-medium text-sm">
+                        <strong>PRO-TIP:</strong> Cara kalibrasi Gain yang benar adalah menyuruh penyanyi bernyanyi sangat keras, lalu putar Gain pelan-pelan ke kanan hingga lampu indikator <strong>PEAK</strong> menyala merah, lalu <strong>mundurkan sedikit</strong> hingga PEAK mati.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div>
-                <h3 className="text-xl font-bold text-white mb-2">
-                  PAN (Panorama) Control
-                </h3>
-                <p className="text-slate-400 font-medium">
-                  Mendistribusikan aliran suara antara Speaker Kiri dan Speaker
-                  Kanan. Untuk latihan studio standar,{' '}
-                  <strong>WAJIB tegak lurus di Arah Jam 12 (Tengah)</strong>{' '}
-                  agar suara merata di seluruh ruangan. Hanya putar penuh untuk
-                  instrumen spesifik seperti Tom Drum L/R atau Keyboard Stereo
-                  L/R.
-                </p>
+
+              {/* COMPRESSOR */}
+              <div className="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden">
+                <div className="grid grid-cols-1 lg:grid-cols-12">
+                  <div className="lg:col-span-4 bg-[#1a1f2b] p-8 flex justify-center items-center border-b lg:border-b-0 lg:border-r-[6px] border-slate-800 min-h-[220px] relative">
+                    <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
+                    <div className="z-10 scale-125">
+                      <Knob label="COMP" colorClass="knob-cap-yellow" value={35} disabled={true} />
+                    </div>
+                  </div>
+                  <div className="lg:col-span-8 p-8 flex flex-col justify-center">
+                    <h3 className="text-2xl font-black text-slate-800 mb-4">COMPRESSOR (Penjinak Dinamika)</h3>
+                    <p className="text-slate-600 text-lg leading-relaxed">
+                      Fitur magis Yamaha yang meratakan volume secara otomatis. Jika penyanyi tiba-tiba menjerit keras, *compressor* menahan volumenya agar speaker tidak jebol. Jika berbisik pelan, *compressor* membantu mengangkatnya. Putar di kisaran <strong>Jam 9 - 10</strong> untuk vokal.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* BAB 4 */}
-        <div className="mb-4">
-          <div className="flex items-center gap-4 mb-8">
-            <div className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center border border-slate-600 shadow-inner">
-              <Activity size={28} className="text-red-400" />
-            </div>
-            <h2 className="text-2xl font-black uppercase text-white tracking-widest">
-              Bab 4: Routing & Master Output
-            </h2>
-          </div>
-
-          <div className="space-y-6">
-            {/* Routing Buttons */}
-            <div className="flex bg-slate-800/30 p-6 rounded-xl border border-slate-700 items-center gap-8">
-              <div className="w-24 shrink-0 flex flex-col items-center gap-4">
-                <ToggleBtn
-                  label="ON"
-                  activeColor="bg-orange-500 shadow-[0_0_10px_orange]"
-                  active={true}
-                  disabled={true}
-                />
-                <ToggleBtn
-                  label="ST"
-                  activeColor="bg-red-500 shadow-[0_0_10px_red]"
-                  active={true}
-                  disabled={true}
-                  type="small-rect"
-                />
+          {/* BAB 3: EQUALIZER */}
+          <div>
+            <div className="flex items-center gap-4 mb-8 border-b-2 border-slate-300 pb-4">
+              <div className="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center border-2 border-green-500 shadow-sm">
+                <Waves size={32} className="text-green-600" />
               </div>
-              <div>
-                <h3 className="text-xl font-bold text-white mb-2">
-                  Tombol Routing (ON & ST)
-                </h3>
-                <p className="text-slate-400 font-medium mb-2">
-                  <strong className="text-orange-400">Tombol ON:</strong> Saklar
-                  utama untuk mengaktifkan seluruh modul di channel tersebut.
-                  Wajib menyala terang berwarna oranye agar suara bisa diproses.
-                </p>
-                <p className="text-slate-400 font-medium">
-                  <strong className="text-red-400">Tombol ST:</strong> Singkatan
-                  dari Stereo. Berfungsi melempar aliran audio yang sudah
-                  diproses menuju ke Master Fader Utama.{' '}
-                  <strong>PENTING:</strong> Jika tombol ST tidak ditekan, suara
-                  selamanya tidak akan terdengar di speaker studio.
-                </p>
-              </div>
+              <h2 className="text-3xl font-black uppercase text-slate-800 tracking-widest">
+                Bab 3: Arsitektur Frekuensi (EQ)
+              </h2>
             </div>
 
-            {/* Faders */}
-            <div className="flex bg-slate-800/30 p-6 rounded-xl border border-slate-700 items-center gap-8">
-              <div className="w-32 shrink-0 flex justify-center gap-2">
-                <div className="scale-75 transform origin-top">
-                  <Fader
-                    label="CH 1"
-                    capType="white"
-                    value={70}
-                    disabled={true}
-                  />
+            <div className="bg-white rounded-3xl border border-slate-200 shadow-md overflow-hidden">
+              <div className="grid grid-cols-1 lg:grid-cols-12">
+                <div className="lg:col-span-5 bg-[#1a1f2b] p-10 flex flex-col items-center justify-center gap-8 border-b lg:border-b-0 lg:border-r-[6px] border-slate-800 min-h-[400px] relative">
+                  <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
+                  <div className="z-10 scale-125">
+                    <Knob label="HIGH" colorClass="knob-cap-green" value={65} disabled={true} />
+                  </div>
+                  <div className="z-10 scale-125">
+                    <Knob label="MID" colorClass="knob-cap-green" value={45} disabled={true} />
+                  </div>
+                  <div className="z-10 scale-125">
+                    <Knob label="LOW" colorClass="knob-cap-green" value={50} disabled={true} />
+                  </div>
                 </div>
-                <div className="scale-75 transform origin-top">
-                  <Fader
-                    label="STEREO"
-                    capType="red"
-                    value={80}
-                    disabled={true}
-                  />
+                
+                <div className="lg:col-span-7 p-10 flex flex-col justify-center space-y-6">
+                  <div className="bg-slate-50 p-5 rounded-xl border border-slate-200 shadow-sm">
+                    <h4 className="font-black text-xl text-green-700 mb-2 border-b border-slate-200 pb-2">HIGH (Treble - 10 kHz)</h4>
+                    <p className="text-slate-600 text-md leading-relaxed">
+                      Ruang udara (*Air*) dan kejelasan konsonan (S/T). Angkat (Jam 1-2) untuk membuat vokal lebih mahal dan gemerincing. Turunkan jika suara simbal drum memekakkan telinga (*Harsh*).
+                    </p>
+                  </div>
+                  <div className="bg-slate-50 p-5 rounded-xl border border-slate-200 shadow-sm">
+                    <h4 className="font-black text-xl text-green-700 mb-2 border-b border-slate-200 pb-2">MID (Middle - 2.5 kHz)</h4>
+                    <p className="text-slate-600 text-md leading-relaxed">
+                      Jantung instrumen (Vokal & Gitar). Memotong MID sedikit (Jam 10-11) adalah trik rahasia teknisi untuk menghilangkan suara "sengau" (*Boxy/Honky*) seperti menyanyi dalam kaleng.
+                    </p>
+                  </div>
+                  <div className="bg-slate-50 p-5 rounded-xl border border-slate-200 shadow-sm">
+                    <h4 className="font-black text-xl text-green-700 mb-2 border-b border-slate-200 pb-2">LOW (Bass - 100 Hz)</h4>
+                    <p className="text-slate-600 text-md leading-relaxed">
+                      Pondasi ketukan panggung (*Groove*). Terlalu banyak LOW akan membuat seluruh tata suara bergulung seperti lumpur (*Muddy Mix*), mengubur kejelasan vokal.
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-white mb-2">
-                  Fader Channel & Master
-                </h3>
-                <p className="text-slate-400 font-medium mb-3">
-                  <strong className="text-white">Fader Putih (Channel):</strong>{' '}
-                  Menentukan porsi volume untuk instrumen di channel tersebut
-                  dalam bauran keseluruhan (Mix). Posisi normal berada di
-                  sekitar angka 0 (garis panduan tebal).
-                </p>
-                <p className="text-slate-400 font-medium">
-                  <strong className="text-red-400">
-                    Fader Merah (STEREO OUT):
-                  </strong>{' '}
-                  Pengatur volume gerbang akhir untuk seluruh suara sebelum
-                  dikirim ke speaker utama studio. Titik paling aman berada di
-                  bawah angka 0.{' '}
-                  <strong>
-                    Mutlak diturunkan ke titik paling dasar (0) sebelum
-                    menyalakan atau mematikan kelistrikan Mixer!
-                  </strong>
-                </p>
               </div>
             </div>
           </div>
+
+          {/* BAB 4: ROUTING & SPASIAL */}
+          <div>
+            <div className="flex items-center gap-4 mb-8 border-b-2 border-slate-300 pb-4">
+              <div className="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center border-2 border-purple-500 shadow-sm">
+                <Headphones size={32} className="text-purple-600" />
+              </div>
+              <h2 className="text-3xl font-black uppercase text-slate-800 tracking-widest">
+                Bab 4: Routing & Spasial
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* AUX */}
+              <div className="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden flex flex-col">
+                <div className="bg-[#1a1f2b] p-8 flex justify-center items-center border-b-[6px] border-slate-800 min-h-[180px] relative">
+                  <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
+                  <div className="z-10 scale-125">
+                    <Knob label="AUX 1" colorClass="knob-cap-blue" value={60} disabled={true} />
+                  </div>
+                </div>
+                <div className="p-8 flex-1">
+                  <h3 className="text-2xl font-black text-slate-800 mb-4">AUX (Monitor Send)</h3>
+                  <p className="text-slate-600 text-lg leading-relaxed">
+                    Tugas AUX adalah "mencabang" audio untuk dikirim ke <strong>Speaker Monitor Lantai (Panggung)</strong>. Berbeda dengan Fader Utama yang mengarah ke penonton. Putar knob ini jika pemain drum berteriak meminta suara bassnya ditebalkan di monitornya sendiri.
+                  </p>
+                </div>
+              </div>
+
+              {/* PAN */}
+              <div className="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden flex flex-col">
+                <div className="bg-[#1a1f2b] p-8 flex justify-center items-center border-b-[6px] border-slate-800 min-h-[180px] relative">
+                  <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
+                  <div className="z-10 scale-125">
+                    <Knob label="PAN" colorClass="knob-cap-red" value={50} disabled={true} />
+                  </div>
+                </div>
+                <div className="p-8 flex-1">
+                  <h3 className="text-2xl font-black text-slate-800 mb-4">PAN (Panorama L/R)</h3>
+                  <p className="text-slate-600 text-lg leading-relaxed">
+                    Ilusi tata letak spasial. Vokal Utama, Bass, dan Kick Drum <strong>wajib ditegakkan lurus (Jam 12)</strong> agar terdengar tebal. Namun, jika Anda punya dua gitaris, geser PAN Gitar A agak ke Kiri dan Gitar B agak ke Kanan agar tidak saling bertabrakan.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* BAB 5: FADER & MASTER OUT */}
+          <div>
+            <div className="flex items-center gap-4 mb-8 border-b-2 border-slate-300 pb-4">
+              <div className="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center border-2 border-orange-500 shadow-sm">
+                <Activity size={32} className="text-orange-600" />
+              </div>
+              <h2 className="text-3xl font-black uppercase text-slate-800 tracking-widest">
+                Bab 5: Bauran Akhir (The Mix)
+              </h2>
+            </div>
+
+            <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
+              <div className="grid grid-cols-1 lg:grid-cols-12">
+                
+                {/* Visual Fader Box */}
+                <div className="lg:col-span-5 bg-[#1a1f2b] p-10 flex justify-center items-end gap-6 border-b lg:border-b-0 lg:border-r-[6px] border-slate-800 min-h-[450px] relative">
+                  <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-black/50"></div>
+                  
+                  <div className="z-10 flex flex-col items-center gap-5">
+                    <ToggleBtn label="ON" activeColor="bg-orange-500 shadow-[0_0_15px_orange]" active={true} disabled={true} />
+                    <ToggleBtn label="ST" activeColor="bg-red-500 shadow-[0_0_15px_red]" active={true} disabled={true} type="small-rect" />
+                    <div className="mt-4">
+                      <Fader label="CH 1" capType="white" value={70} disabled={true} />
+                    </div>
+                  </div>
+
+                  <div className="z-10 w-1 h-[280px] bg-slate-700/50 rounded-full mx-2 border-r border-white/5"></div>
+
+                  <div className="z-10 flex flex-col items-center justify-end h-full">
+                    <Fader label="STEREO" capType="red" value={80} disabled={true} />
+                  </div>
+                </div>
+
+                {/* Text Explanation */}
+                <div className="lg:col-span-7 p-10 flex flex-col justify-center space-y-8">
+                  <div>
+                    <h3 className="text-2xl font-black text-slate-800 mb-3 border-b-2 border-orange-200 pb-2 inline-block">Sirkuit Bus (ON & ST)</h3>
+                    <p className="text-slate-600 text-lg leading-relaxed">
+                      Mixer analog menggunakan rute "Bus". Tombol <span className="bg-orange-100 text-orange-600 px-2 py-1 rounded font-bold">ON</span> menyalakan saklar daya per channel. Tombol <span className="bg-red-100 text-red-600 px-2 py-1 rounded font-bold">ST (Stereo)</span> mengarahkan suara dari channel tersebut ke "jalan tol" utama (Fader Merah). Lupa menekan ST berarti suara tidak akan pernah keluar ke penonton!
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <h3 className="text-2xl font-black text-slate-800 mb-3 border-b-2 border-slate-200 pb-2 inline-block">Konsep Unity Gain</h3>
+                    <p className="text-slate-600 text-lg leading-relaxed">
+                      Perhatikan Fader Putih; angka <strong className="text-slate-900 text-xl">0</strong> berada agak di atas (garis tebal). Ini adalah <i>Unity Gain</i>, titik dimana Fader tidak menambah (+dB) atau menahan (-dB) laju listrik suara. Pertahankan posisi fader berdekatan dengan area 0 untuk kejernihan rasio dinamika terbaik.
+                    </p>
+                  </div>
+
+                  <div className="bg-red-50 border border-red-200 p-5 rounded-xl">
+                    <h4 className="font-black text-red-700 flex items-center gap-2 mb-2">
+                      <ShieldAlert size={20} /> FADER STEREO MERAH
+                    </h4>
+                    <p className="text-red-900 text-md font-medium">
+                      Ini adalah pintu gerbang absolut menuju Speaker Panggung. Pastikan selalu ditarik turun hingga menyentuh dasar (0) setiap kali Anda hendak menekan saklar Daya Utama (POWER ON/OFF).
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
