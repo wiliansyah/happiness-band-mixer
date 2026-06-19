@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@theme {
+  --color-yamaha-blue: #1e3a8a;
+  --color-mixer-dark: #111827;
+  --color-mixer-light: #1f2937;
+  --color-mixer-panel: #242b3a;
+  --color-mixer-edge: #1a1f2b;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #0f172a; /* slate-900 */
+}
+
+/* Custom Utilities */
+.drag-none {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+}
+
+/* Skeuomorphic Knob Shadows */
+.knob-shadow {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.6), inset 0 2px 4px 0 rgba(255, 255, 255, 0.2);
+}
+
+.knob-base {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), inset 0 0 5px rgba(0,0,0,0.8);
+}
+
+/* Fader Groove */
+.fader-groove {
+  box-shadow: inset 0 2px 10px rgba(0,0,0,0.8);
+}
+
+/* Fader Cap */
+.fader-cap {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.8), inset 0 1px 3px rgba(255,255,255,0.4);
+}
+
+.fader-cap-red {
+  background: linear-gradient(to bottom, #ef4444, #991b1b);
+}
+
+.fader-cap-white {
+  background: linear-gradient(to bottom, #f8fafc, #94a3b8);
+}
+
+.fader-cap-gray {
+  background: linear-gradient(to bottom, #64748b, #334155);
+}
+
+.btn-inset {
+  box-shadow: inset 0 3px 5px rgba(0,0,0,0.6);
+}
+
+/* Cable path */
+.cable-path {
+  fill: none;
+  stroke: #111;
+  stroke-width: 8;
+  stroke-linecap: round;
+  filter: drop-shadow(0px 10px 5px rgba(0,0,0,0.6));
+}
+
+.cable-highlight {
+  stroke: #333;
+  stroke-width: 2;
+  fill: none;
+}
+
+.metallic-jack {
+  background: linear-gradient(90deg, #94a3b8 0%, #cbd5e1 50%, #64748b 100%);
+  box-shadow: 0 5px 10px rgba(0,0,0,0.5), inset 0 0 2px rgba(255,255,255,0.8);
+}
