@@ -182,6 +182,7 @@ export default function App() {
   };
 
   const DraggableCable = ({ type }) => {
+    const cable = cableTypes[type];
     const isSelected = selectedCable === type;
     return (
       <div 
