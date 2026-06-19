@@ -22,7 +22,7 @@ export const ManualBook = () => {
       <div className="max-w-5xl mx-auto bg-white shadow-2xl rounded-xl text-slate-800 leading-relaxed print:shadow-none print:bg-white print:text-black overflow-hidden border border-slate-300">
         
         {/* HEADER SECTION */}
-        <div className="bg-slate-900 text-white p-10 md:p-16 text-center relative overflow-hidden">
+        <div className="bg-slate-900 text-white p-6 md:p-16 text-center relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-600 via-emerald-500 to-yellow-500"></div>
           <h1 className="text-3xl md:text-5xl font-black uppercase tracking-widest mb-4 relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">
             Buku Panduan Operasional
@@ -39,8 +39,8 @@ export const ManualBook = () => {
         <div className="p-6 md:p-12 space-y-16 bg-slate-50">
           
           {/* PERINGATAN RISIKO */}
-          <div className="bg-red-50 border-l-[8px] border-red-600 p-8 rounded-r-xl shadow-md relative overflow-hidden flex flex-col md:flex-row gap-6 items-center md:items-start">
-            <div className="bg-red-100 p-5 rounded-full shrink-0 shadow-inner">
+          <div className="bg-red-50 border-l-[8px] border-red-600 p-5 md:p-8 rounded-r-xl shadow-md relative overflow-hidden flex flex-col md:flex-row gap-4 md:gap-6 items-center md:items-start">
+            <div className="bg-red-100 p-4 md:p-5 rounded-full shrink-0 shadow-inner">
               <ShieldAlert size={48} className="text-red-600" />
             </div>
             <div>
@@ -66,7 +66,7 @@ export const ManualBook = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* FASE 1 */}
-              <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-lg flex flex-col gap-6 relative overflow-hidden">
+              <div className="bg-white p-5 md:p-8 rounded-2xl border border-slate-200 shadow-lg flex flex-col gap-4 md:gap-6 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-2 bg-emerald-500"></div>
                 <h3 className="text-xl font-black text-emerald-700 tracking-widest text-center border-b border-slate-100 pb-4">
                   FASE 1: TURN ON
@@ -83,7 +83,7 @@ export const ManualBook = () => {
               </div>
 
               {/* FASE 2 */}
-              <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-lg flex flex-col gap-6 relative overflow-hidden">
+              <div className="bg-white p-5 md:p-8 rounded-2xl border border-slate-200 shadow-lg flex flex-col gap-4 md:gap-6 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-2 bg-blue-500"></div>
                 <h3 className="text-xl font-black text-blue-700 tracking-widest text-center border-b border-slate-100 pb-4">
                   FASE 2: SOUNDCHECK
@@ -100,7 +100,7 @@ export const ManualBook = () => {
               </div>
 
               {/* FASE 3 */}
-              <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-lg flex flex-col gap-6 relative overflow-hidden">
+              <div className="bg-white p-5 md:p-8 rounded-2xl border border-slate-200 shadow-lg flex flex-col gap-4 md:gap-6 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-2 bg-red-500"></div>
                 <h3 className="text-xl font-black text-red-700 tracking-widest text-center border-b border-slate-100 pb-4">
                   FASE 3: TURN OFF

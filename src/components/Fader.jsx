@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 
-export const Fader = ({ label = 'CH 1', capType = 'white', value = 0, onChange, disabled = false, id }) => {
+export const Fader = ({ label = 'CH 1', capType = 'white', value = 0, onChange, disabled = false, id, highlight }) => {
   const capColors = {
     white: 'bg-gradient-to-b from-slate-100 to-slate-300 border-b-slate-400',
     red: 'bg-gradient-to-b from-red-500 to-red-700 border-b-red-800',
@@ -32,8 +32,13 @@ export const Fader = ({ label = 'CH 1', capType = 'white', value = 0, onChange, 
   };
 
   return (
-    <div className="flex flex-col items-center relative select-none w-16" id={id}>
-      <div className="bg-slate-900 w-16 h-[250px] md:h-[280px] rounded-xl border border-slate-700/50 shadow-[inset_0_5px_15px_rgba(0,0,0,0.5)] flex flex-col items-center py-4 relative overflow-hidden">
+    <div className={`flex flex-col items-center relative select-none w-16 ${highlight ? 'z-50' : ''}`} id={id}>
+      {highlight && (
+        <div className="absolute -top-12 left-1/2 -translate-x-1/2 animate-bounce z-50 text-yellow-400 pointer-events-none drop-shadow-[0_0_10px_rgba(250,204,21,1)]">
+           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21l-9-9h6V3h6v9h6z"/></svg>
+        </div>
+      )}
+      <div className={`bg-slate-900 w-16 h-[250px] md:h-[280px] rounded-xl border border-slate-700/50 flex flex-col items-center py-4 relative overflow-hidden ${highlight ? 'ring-4 ring-offset-4 ring-offset-slate-900 ring-yellow-400 shadow-[0_0_20px_rgba(250,204,21,1)] animate-pulse' : 'shadow-[inset_0_5px_15px_rgba(0,0,0,0.5)]'}`}>
         
         {/* Scale markings */}
         <div className="absolute left-2 top-4 bottom-4 w-2 flex flex-col justify-between items-end opacity-40">

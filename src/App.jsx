@@ -118,6 +118,18 @@ export default function App() {
   const [activeScenario, setActiveScenario] = useState('menu');
   const [sopStep, setSopStep] = useState(0);
 
+  const quitScenario = () => {
+    // Kembalikan mixer ke state awal (reset)
+    setChannels(Array.from({length: 16}, createChannel));
+    setFaderMaster(0);
+    setPower(false);
+    setPhantom(false);
+    
+    setActiveScenario('menu');
+    setSopStep(0);
+    setIsSopMinimized(false);
+  };
+
   const scenarios = {
     powerOn: {
       id: 'powerOn',
@@ -373,7 +385,7 @@ export default function App() {
                     <div>
                       <div className="flex items-center justify-between mb-2 lg:mb-4">
                         <button
-                          onClick={() => setActiveScenario('menu')}
+                          onClick={quitScenario}
                           className="text-[10px] lg:text-[11px] font-bold text-slate-400 hover:text-white mb-0 flex items-center gap-1 transition-colors bg-slate-800 lg:bg-transparent px-2 lg:px-0 py-1 lg:py-0 rounded"
                         >
                           <ChevronLeft size={12} /> <span className="hidden lg:inline">Kembali ke Menu</span><span className="lg:hidden">Keluar</span>

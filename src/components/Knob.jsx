@@ -40,14 +40,22 @@ export const Knob = ({
   const labelSize = size === 'small' ? 'text-[8px]' : 'text-[10px]';
 
   return (
-    <div className={`flex flex-col items-center gap-1 md:gap-2 select-none ${highlight ? 'animate-pulse z-10 scale-110' : ''} ${disabled ? 'opacity-70' : ''}`} id={id}>
+    <div 
+      className={`flex flex-col items-center gap-1 md:gap-2 select-none ${highlight ? 'z-10' : ''} ${disabled ? 'opacity-70' : ''}`} 
+      id={id}
+    >
       <div 
         ref={containerRef}
         className={`relative ${sizeClasses} flex items-center justify-center cursor-pointer touch-none z-20`}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
       >
-        <div className={`absolute ${sizeClasses} rounded-full bg-slate-900 border border-slate-700 shadow-[0_5px_10px_rgba(0,0,0,0.5),inset_0_2px_4px_rgba(0,0,0,0.8)] pointer-events-none`}></div>
+        {highlight && (
+          <div className="absolute -top-8 left-1/2 -translate-x-1/2 animate-bounce z-50 text-yellow-400 pointer-events-none drop-shadow-[0_0_10px_rgba(250,204,21,1)]">
+             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21l-9-9h6V3h6v9h6z"/></svg>
+          </div>
+        )}
+        <div className={`absolute ${sizeClasses} rounded-full bg-slate-900 border border-slate-700 pointer-events-none ${highlight ? 'ring-4 ring-offset-4 ring-offset-slate-900 ring-yellow-400 shadow-[0_0_20px_rgba(250,204,21,1)] animate-pulse' : 'shadow-[0_5px_10px_rgba(0,0,0,0.5),inset_0_2px_4px_rgba(0,0,0,0.8)]'}`}></div>
         
         <div
           className={`absolute ${capClasses} rounded-full ${colorClass} shadow-[inset_0_-2px_4px_rgba(0,0,0,0.4),0_2px_4px_rgba(0,0,0,0.5)] pointer-events-none transition-transform`}

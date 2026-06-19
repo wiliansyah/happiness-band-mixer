@@ -26,10 +26,15 @@ export const InputJack = ({
 
   return (
     <div 
-      className={`flex flex-col items-center mb-2 relative ${highlight ? 'animate-pulse z-10' : ''}`} 
+      className={`flex flex-col items-center mb-2 relative ${highlight ? 'z-50' : ''}`} 
       id={id}
       onClick={onClick}
     >
+      {highlight && (
+        <div className="absolute -top-12 left-1/2 -translate-x-1/2 animate-bounce z-50 text-yellow-400 pointer-events-none drop-shadow-[0_0_10px_rgba(250,204,21,1)]">
+           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21l-9-9h6V3h6v9h6z"/></svg>
+        </div>
+      )}
       <div 
         className="h-[50px] flex flex-col items-center justify-end pb-1 w-full relative z-10"
         onDragOver={handleDragOver}
@@ -66,7 +71,7 @@ export const InputJack = ({
       </div>
       
       {/* Socket hole */}
-      <div className={`w-8 h-8 rounded-full bg-slate-950 border-[3px] shadow-[inset_0_5px_15px_rgba(0,0,0,1)] flex items-center justify-center relative -mt-2 z-0 ${highlight ? 'border-yellow-400/80 ring-2 ring-yellow-400/50' : 'border-slate-600'}`}>
+      <div className={`w-8 h-8 rounded-full bg-slate-950 border-[3px] shadow-[inset_0_5px_15px_rgba(0,0,0,1)] flex items-center justify-center relative -mt-2 z-0 ${highlight ? 'border-yellow-400 ring-4 ring-offset-4 ring-offset-slate-900 ring-yellow-400 shadow-[0_0_20px_rgba(250,204,21,1)] animate-pulse' : 'border-slate-600'}`}>
         <div className="w-3 h-3 rounded-full bg-black shadow-[inset_0_2px_5px_rgba(0,0,0,1)]"></div>
         {/* Outer metallic ring */}
         <div className="absolute inset-0 rounded-full border border-white/20 pointer-events-none"></div>
