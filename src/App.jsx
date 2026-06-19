@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Power, SlidersHorizontal, Activity, Mic2, Guitar, BookOpen, AlertTriangle, CheckCircle2, ChevronRight, ChevronLeft, Check, Plug, Disc3, Piano, FileText } from 'lucide-react';
 import { ChannelStrip } from './components/ChannelStrip';
 import { MasterSection } from './components/MasterSection';
@@ -28,6 +28,38 @@ export default function App() {
   const [phantom, setPhantom] = useState(false);
   const [faderMaster, setFaderMaster] = useState(70); // Starts high to trigger SOP step 1
   const [selectedCable, setSelectedCable] = useState(null);
+
+  // Drag-to-Scroll State
+  const scrollRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [startY, setStartY] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const [scrollTop, setScrollTop] = useState(0);
+
+  const handleMouseDown = (e) => {
+    // Prevent dragging if clicking an interactive element
+    if (['INPUT', 'BUTTON'].includes(e.target.tagName) || e.target.closest('.fader-cap') || e.target.closest('.metallic-jack')) return;
+    setIsDragging(true);
+    setStartX(e.pageX - scrollRef.current.offsetLeft);
+    setStartY(e.pageY - scrollRef.current.offsetTop);
+    setScrollLeft(scrollRef.current.scrollLeft);
+    setScrollTop(scrollRef.current.scrollTop);
+  };
+
+  const handleMouseLeave = () => setIsDragging(false);
+  const handleMouseUp = () => setIsDragging(false);
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const y = e.pageY - scrollRef.current.offsetTop;
+    const walkX = (x - startX) * 1.5;
+    const walkY = (y - startY) * 1.5;
+    scrollRef.current.scrollLeft = scrollLeft - walkX;
+    scrollRef.current.scrollTop = scrollTop - walkY;
+  };
 
   // 16 Channels
   const [channels, setChannels] = useState(Array.from({length: 16}, createChannel));
@@ -242,9 +274,15 @@ export default function App() {
         ) : (
           <>
             {/* LEFT PANEL */}
-            <div className="w-full lg:w-[350px] bg-slate-900 border-b-2 lg:border-b-0 lg:border-r-2 border-slate-800 flex flex-col shadow-2xl z-10 shrink-0 h-[220px] md:h-[300px] lg:h-full overflow-y-auto">
+            <div className={`
+              ${activeScenario !== 'menu' 
+                ? 'absolute bottom-4 left-4 right-4 rounded-xl border-2 border-blue-500/50 shadow-[0_0_30px_rgba(0,0,0,0.8)] max-h-[45%] lg:max-h-none lg:static lg:w-[350px] lg:border-y-0 lg:border-l-0 lg:border-r-2 lg:border-slate-800 lg:rounded-none lg:shadow-2xl' 
+                : 'w-full lg:w-[350px] h-[30%] lg:h-full border-b-2 lg:border-b-0 lg:border-r-2 border-slate-800'
+              } 
+              bg-slate-900 flex flex-col z-40 shrink-0 overflow-y-auto transition-all duration-300
+            `}>
               {/* Signal Dashboard */}
-              <div className="p-4 bg-slate-950/50 border-b border-slate-800">
+              <div className={`p-4 bg-slate-950/50 border-b border-slate-800 ${activeScenario !== 'menu' ? 'hidden lg:block' : 'block'}`}>
                 <h2 className="text-xs font-bold text-emerald-500 uppercase mb-3 flex gap-2 items-center tracking-wider">
                   <Activity size={16} /> Signal Monitor
                 </h2>
@@ -372,10 +410,16 @@ export default function App() {
             </div>
 
             {/* RIGHT PANEL: MIXER BOARD */}
-            {/* FIX OVERLAP: Changed justify-center to justify-start */}
-            <div className="flex-1 bg-slate-950 p-4 md:p-8 pb-12 flex items-start lg:items-center justify-start overflow-auto relative shadow-[inset_0_0_100px_rgba(0,0,0,1)]">
+            <div 
+              ref={scrollRef}
+              onMouseDown={handleMouseDown}
+              onMouseLeave={handleMouseLeave}
+              onMouseUp={handleMouseUp}
+              onMouseMove={handleMouseMove}
+              className={`flex-1 bg-slate-950 p-4 md:p-8 pb-32 flex items-start lg:items-center justify-start overflow-auto relative shadow-[inset_0_0_100px_rgba(0,0,0,1)] ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+            >
               
-              <div className="bg-[#1a1f2b] p-4 md:p-8 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.9),inset_0_2px_4px_rgba(255,255,255,0.1)] border-t-[12px] border-slate-700 flex gap-2 border-x-4 border-b-[12px] border-x-slate-800 border-b-slate-900 min-w-max relative overflow-hidden mb-8">
+              <div className="bg-[#1a1f2b] p-4 md:p-8 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.9),inset_0_2px_4px_rgba(255,255,255,0.1)] border-t-[12px] border-slate-700 flex gap-4 md:gap-2 border-x-4 border-b-[12px] border-x-slate-800 border-b-slate-900 min-w-max relative overflow-hidden mb-8">
                 
                 {/* Top metallic plate effect */}
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
