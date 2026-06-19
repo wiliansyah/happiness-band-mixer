@@ -9,7 +9,8 @@ export const InputJack = ({
   id, 
   highlight,
   onDrop,
-  onDisconnect
+  onDisconnect,
+  onClick
 }) => {
   const handleDragOver = (e) => {
     e.preventDefault();
@@ -27,6 +28,7 @@ export const InputJack = ({
     <div 
       className={`flex flex-col items-center mb-2 relative ${highlight ? 'animate-pulse z-10' : ''}`} 
       id={id}
+      onClick={onClick}
     >
       <div 
         className="h-[50px] flex flex-col items-center justify-end pb-1 w-full relative z-10"

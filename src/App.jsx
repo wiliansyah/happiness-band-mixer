@@ -1,21 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Power,
-  SlidersHorizontal,
-  Activity,
-  Mic2,
-  Guitar,
-  BookOpen,
-  AlertTriangle,
-  CheckCircle2,
-  ChevronRight,
-  ChevronLeft,
-  Check,
-  Plug,
-  Disc3,
-  Piano,
-  FileText,
-} from 'lucide-react';
+import { Power, SlidersHorizontal, Activity, Mic2, Guitar, BookOpen, AlertTriangle, CheckCircle2, ChevronRight, ChevronLeft, Check, Plug, Disc3, Piano, FileText } from 'lucide-react';
 import { ChannelStrip } from './components/ChannelStrip';
 import { MasterSection } from './components/MasterSection';
 import { ManualBook } from './components/ManualBook';
@@ -43,22 +27,19 @@ export default function App() {
   const [power, setPower] = useState(false);
   const [phantom, setPhantom] = useState(false);
   const [faderMaster, setFaderMaster] = useState(70); // Starts high to trigger SOP step 1
+  const [selectedCable, setSelectedCable] = useState(null);
 
   // 16 Channels
-  const [channels, setChannels] = useState(
-    Array.from({ length: 16 }, createChannel)
-  );
+  const [channels, setChannels] = useState(Array.from({length: 16}, createChannel));
   const [signalMaster, setSignalMaster] = useState(0);
   const [peakWarn, setPeakWarn] = useState(false);
 
   const updateChannel = (index, key, value) => {
     if (key === 'connected' && power) {
-      alert(
-        '⚠️ BAHAYA! Matikan POWER utama terlebih dahulu sebelum mencabut atau memasang kabel untuk mencegah kerusakan speaker (Popping Sound).'
-      );
+      alert("⚠️ BAHAYA! Matikan POWER utama terlebih dahulu sebelum mencabut atau memasang kabel untuk mencegah kerusakan speaker (Popping Sound).");
       return;
     }
-    setChannels((prev) => {
+    setChannels(prev => {
       const newChannels = [...prev];
       newChannels[index] = { ...newChannels[index], [key]: value };
       return newChannels;
@@ -77,8 +58,8 @@ export default function App() {
 
     const newChannels = channels.map((ch, i) => {
       if (!ch.connected) return { ...ch, peak: false };
-
-      let s = i % 2 === 0 ? 40 : 80;
+      
+      let s = (i % 2 === 0) ? 40 : 80;
       if (ch.pad) s *= 0.1;
       if (ch.hpf) s *= 0.9;
       s = s * (1 + ch.gain / 30);
@@ -93,9 +74,7 @@ export default function App() {
       return { ...ch, peak: isPeak };
     });
 
-    const peaksChanged = channels.some(
-      (ch, i) => ch.peak !== newChannels[i].peak
-    );
+    const peaksChanged = channels.some((ch, i) => ch.peak !== newChannels[i].peak);
     if (peaksChanged) setChannels(newChannels);
 
     setSignalMaster(totalSignal * (faderMaster / 100));
@@ -116,18 +95,13 @@ export default function App() {
           action: 'Turunkan Semua Volume',
           desc: 'Tarik Fader CH 1, Fader CH 2, dan Fader MASTER MERAH ke posisi paling bawah (0).',
           highlight: { fader1: true, fader2: true, faderMaster: true },
-          check: () =>
-            channels[0].fader <= 5 &&
-            channels[1].fader <= 5 &&
-            faderMaster <= 5,
+          check: () => channels[0].fader <= 5 && channels[1].fader <= 5 && faderMaster <= 5,
         },
         {
           action: 'Colok Kabel Input',
           desc: 'Drag kabel Mic 1 (Biru) ke CH 1 dan kabel Mic 2 (Merah) ke CH 2 di rak atas.',
           highlight: { jack1: true, jack2: true },
-          check: () =>
-            channels[0].connected === 'mic1' &&
-            channels[1].connected === 'mic2',
+          check: () => channels[0].connected === 'mic1' && channels[1].connected === 'mic2',
         },
         {
           action: 'Nyalakan Power Mixer',
@@ -152,11 +126,7 @@ export default function App() {
           action: 'Hidupkan & Routing Channel',
           desc: 'Tekan tombol ON dan ST pada CH 1 dan CH 2.',
           highlight: { on1: true, st1: true, on2: true, st2: true },
-          check: () =>
-            channels[0].on &&
-            channels[0].st &&
-            channels[1].on &&
-            channels[1].st,
+          check: () => channels[0].on && channels[0].st && channels[1].on && channels[1].st,
         },
         {
           action: 'Buka Master Volume',
@@ -181,10 +151,7 @@ export default function App() {
           action: 'Tutup Semua Volume',
           desc: 'Tarik KEMBALI Fader CH 1, Fader CH 2, dan Fader MASTER MERAH ke 0.',
           highlight: { fader1: true, fader2: true, faderMaster: true },
-          check: () =>
-            channels[0].fader === 0 &&
-            channels[1].fader === 0 &&
-            faderMaster === 0,
+          check: () => channels[0].fader === 0 && channels[1].fader === 0 && faderMaster === 0,
         },
         {
           action: 'Matikan Power Mixer',
@@ -202,51 +169,39 @@ export default function App() {
     },
   };
 
-  const currentHighlight =
-    activeScenario !== 'menu' && viewMode === 'mixer'
-      ? scenarios[activeScenario].steps[sopStep].highlight
-      : {};
+  const currentHighlight = activeScenario !== 'menu' && viewMode === 'mixer' ? scenarios[activeScenario].steps[sopStep].highlight : {};
 
   // Cable definitions
   const cableTypes = {
     mic1: { id: 'mic1', label: 'Mic 1', icon: Mic2, color: 'text-blue-400' },
     mic2: { id: 'mic2', label: 'Mic 2', icon: Mic2, color: 'text-red-400' },
-    guitar: {
-      id: 'guitar',
-      label: 'Guitar',
-      icon: Guitar,
-      color: 'text-emerald-400',
-    },
+    guitar: { id: 'guitar', label: 'Guitar', icon: Guitar, color: 'text-emerald-400' },
     bass: { id: 'bass', label: 'Bass', icon: Guitar, color: 'text-purple-400' },
     drum: { id: 'drum', label: 'Drum', icon: Disc3, color: 'text-yellow-400' },
     keys: { id: 'keys', label: 'Keys', icon: Piano, color: 'text-orange-400' },
   };
 
   const DraggableCable = ({ type }) => {
-    const cable = cableTypes[type];
+    const isSelected = selectedCable === type;
     return (
-      <div
+      <div 
         draggable="true"
         onDragStart={(e) => e.dataTransfer.setData('cableType', type)}
-        className="flex flex-col items-center cursor-grab active:cursor-grabbing hover:scale-110 transition-transform shrink-0"
-        title={`Drag kabel ${cable.label} ke channel manapun`}
+        onClick={() => setSelectedCable(isSelected ? null : type)}
+        className={`flex flex-col items-center cursor-pointer transition-transform shrink-0 rounded-lg p-1 ${isSelected ? 'scale-110 bg-slate-700 ring-2 ring-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.5)]' : 'hover:scale-110'}`}
+        title={`Pilih kabel ${cable.label} lalu ketuk colokan`}
       >
         <cable.icon size={16} className={`${cable.color} mb-0.5`} />
         <div className="w-1.5 h-3 bg-slate-700 border-x border-slate-500 shadow-inner"></div>
         <div className="w-4 h-6 metallic-jack rounded-t-sm border border-slate-600 shadow-md flex justify-center">
-          <div
-            className={`w-2 h-0.5 mt-1 rounded-full ${cable.color.replace(
-              'text-',
-              'bg-'
-            )}`}
-          ></div>
+          <div className={`w-2 h-0.5 mt-1 rounded-full ${cable.color.replace('text-', 'bg-')}`}></div>
         </div>
       </div>
     );
   };
 
   return (
-    <div className="min-h-screen bg-[#0f172a] flex flex-col font-sans h-screen overflow-hidden text-slate-300">
+    <div className="min-h-[100dvh] h-[100dvh] bg-[#0f172a] flex flex-col font-sans overflow-hidden text-slate-300">
       <header className="bg-slate-900 border-b-2 border-slate-700/50 p-3 shadow-xl flex justify-between items-center z-20 shrink-0 flex-wrap gap-4">
         <div className="flex items-center gap-3">
           <SlidersHorizontal size={24} className="text-blue-500" />
@@ -254,22 +209,16 @@ export default function App() {
             YAMAHA MG16XU SIMULATOR
           </h1>
         </div>
-
+        
         <div className="flex gap-4 items-center">
-          <button
-            onClick={() =>
-              setViewMode(viewMode === 'mixer' ? 'manual' : 'mixer')
-            }
+          <button 
+            onClick={() => setViewMode(viewMode === 'mixer' ? 'manual' : 'mixer')}
             className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-2 rounded-lg border border-slate-600 transition-colors shadow-md text-sm font-bold"
           >
             {viewMode === 'mixer' ? (
-              <>
-                <FileText size={16} /> Baca Manual
-              </>
+              <><FileText size={16} /> Baca Manual</>
             ) : (
-              <>
-                <SlidersHorizontal size={16} /> Kembali ke Mixer
-              </>
+              <><SlidersHorizontal size={16} /> Kembali ke Mixer</>
             )}
           </button>
 
@@ -278,9 +227,7 @@ export default function App() {
             <span className="text-xs font-bold text-slate-500 flex items-center gap-1">
               <Plug size={14} /> RAK KABEL:
             </span>
-            {Object.keys(cableTypes).map((type) => (
-              <DraggableCable key={type} type={type} />
-            ))}
+            {Object.keys(cableTypes).map(type => <DraggableCable key={type} type={type} />)}
           </div>
         </div>
       </header>
@@ -291,7 +238,7 @@ export default function App() {
         ) : (
           <>
             {/* LEFT PANEL */}
-            <div className="w-full lg:w-[350px] bg-slate-900 border-r-2 border-slate-800 flex flex-col shadow-2xl z-10 shrink-0 h-[40%] lg:h-full overflow-y-auto">
+            <div className="w-full lg:w-[350px] bg-slate-900 border-b-2 lg:border-b-0 lg:border-r-2 border-slate-800 flex flex-col shadow-2xl z-10 shrink-0 h-[280px] lg:h-full overflow-y-auto">
               {/* Signal Dashboard */}
               <div className="p-4 bg-slate-950/50 border-b border-slate-800">
                 <h2 className="text-xs font-bold text-emerald-500 uppercase mb-3 flex gap-2 items-center tracking-wider">
@@ -299,24 +246,14 @@ export default function App() {
                 </h2>
                 <div className="bg-[#11141c] p-4 rounded-xl border border-slate-800 shadow-inner">
                   <div className="flex justify-between items-center mb-4">
-                    <span className="text-[11px] text-slate-500 font-bold tracking-wider">
-                      MAIN POWER
-                    </span>
-                    <span
-                      className={`text-[10px] font-black px-2 py-1 rounded shadow-inner ${
-                        power
-                          ? 'bg-green-500/20 text-green-400 border border-green-500/50'
-                          : 'bg-red-500/20 text-red-500 border border-red-500/50'
-                      }`}
-                    >
+                    <span className="text-[11px] text-slate-500 font-bold tracking-wider">MAIN POWER</span>
+                    <span className={`text-[10px] font-black px-2 py-1 rounded shadow-inner ${power ? 'bg-green-500/20 text-green-400 border border-green-500/50' : 'bg-red-500/20 text-red-500 border border-red-500/50'}`}>
                       {power ? 'ON' : 'OFF'}
                     </span>
                   </div>
                   <div className="pt-3 border-t border-slate-800/80">
                     <div className="flex justify-between items-end mb-2">
-                      <span className="text-[11px] text-slate-500 font-bold tracking-wider">
-                        SPEAKER OUT
-                      </span>
+                      <span className="text-[11px] text-slate-500 font-bold tracking-wider">SPEAKER OUT</span>
                       {peakWarn && (
                         <span className="text-[10px] font-black text-red-500 animate-pulse flex items-center gap-1">
                           <AlertTriangle size={12} /> DISTORSI
@@ -324,14 +261,7 @@ export default function App() {
                       )}
                     </div>
                     <div className="h-3 bg-slate-950 rounded-full overflow-hidden flex border border-black shadow-inner relative">
-                      <div
-                        className={`h-full transition-all duration-75 ${
-                          peakWarn
-                            ? 'bg-red-500'
-                            : 'bg-gradient-to-r from-emerald-500 via-yellow-400 to-red-500'
-                        }`}
-                        style={{ width: `${Math.min(signalMaster, 100)}%` }}
-                      ></div>
+                      <div className={`h-full transition-all duration-75 ${peakWarn ? 'bg-red-500' : 'bg-gradient-to-r from-emerald-500 via-yellow-400 to-red-500'}`} style={{ width: `${Math.min(signalMaster, 100)}%` }}></div>
                       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSJ0cmFuc3BhcmVudCIvPgo8cmVjdCB3aWR0aD0iMSIgaGVpZ2h0PSI0IiBmaWxsPSJyZ2JhKDAsMCwwLDAuNCkiLz4KPC9zdmc+')] opacity-50"></div>
                     </div>
                   </div>
@@ -376,8 +306,7 @@ export default function App() {
                       </button>
                       <div className="mb-4 flex items-center justify-between">
                         <span className="text-[10px] font-black bg-blue-600 text-white px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg border border-blue-400">
-                          Tahap {sopStep + 1} /{' '}
-                          {scenarios[activeScenario].steps.length}
+                          Tahap {sopStep + 1} / {scenarios[activeScenario].steps.length}
                         </span>
                       </div>
                       <h3 className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 mb-4 leading-tight drop-shadow-md">
@@ -389,8 +318,7 @@ export default function App() {
                         </p>
                       </div>
 
-                      <div
-                        className={`p-4 rounded-xl border-2 flex items-center gap-4 transition-all duration-300 shadow-lg ${
+                      <div className={`p-4 rounded-xl border-2 flex items-center gap-4 transition-all duration-300 shadow-lg ${
                           scenarios[activeScenario].steps[sopStep].check()
                             ? 'bg-emerald-900/20 border-emerald-500/50 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.15)]'
                             : 'bg-slate-900/50 border-slate-700 text-slate-500'
@@ -398,11 +326,7 @@ export default function App() {
                       >
                         <CheckCircle2
                           size={24}
-                          className={`transition-colors ${
-                            scenarios[activeScenario].steps[sopStep].check()
-                              ? 'text-emerald-500'
-                              : 'text-slate-600'
-                          }`}
+                          className={`transition-colors ${scenarios[activeScenario].steps[sopStep].check() ? 'text-emerald-500' : 'text-slate-600'}`}
                         />
                         <span className="font-bold text-xs tracking-wide">
                           {scenarios[activeScenario].steps[sopStep].check()
@@ -411,18 +335,17 @@ export default function App() {
                         </span>
                       </div>
                     </div>
-
+                    
                     <div className="flex gap-3 mt-6">
                       <button
-                        onClick={() => setSopStep((s) => Math.max(0, s - 1))}
+                        onClick={() => setSopStep(s => Math.max(0, s - 1))}
                         disabled={sopStep === 0}
                         className="px-4 py-3 bg-slate-800 text-slate-400 font-bold rounded-xl hover:bg-slate-700 hover:text-white disabled:opacity-30 flex-1 text-xs flex justify-center items-center transition-colors"
                       >
                         <ChevronLeft size={16} />
                       </button>
-
-                      {sopStep === scenarios[activeScenario].steps.length - 1 &&
-                      scenarios[activeScenario].steps[sopStep].check() ? (
+                      
+                      {sopStep === scenarios[activeScenario].steps.length - 1 && scenarios[activeScenario].steps[sopStep].check() ? (
                         <button
                           onClick={() => setActiveScenario('menu')}
                           className="px-4 py-3 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-500 flex-[3] text-sm shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all flex items-center justify-center gap-2 tracking-wide"
@@ -431,17 +354,8 @@ export default function App() {
                         </button>
                       ) : (
                         <button
-                          onClick={() =>
-                            setSopStep((s) =>
-                              Math.min(
-                                scenarios[activeScenario].steps.length - 1,
-                                s + 1
-                              )
-                            )
-                          }
-                          disabled={
-                            !scenarios[activeScenario].steps[sopStep].check()
-                          }
+                          onClick={() => setSopStep(s => Math.min(scenarios[activeScenario].steps.length - 1, s + 1))}
+                          disabled={!scenarios[activeScenario].steps[sopStep].check()}
                           className="px-4 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-500 disabled:opacity-30 disabled:bg-slate-800 disabled:text-slate-500 flex-[3] text-sm shadow-lg transition-all flex items-center justify-center gap-2 tracking-wide"
                         >
                           Lanjut <ChevronRight size={18} />
@@ -455,27 +369,22 @@ export default function App() {
 
             {/* RIGHT PANEL: MIXER BOARD */}
             {/* FIX OVERLAP: Changed justify-center to justify-start */}
-            <div className="flex-1 bg-slate-950 p-4 md:p-8 pb-12 flex items-center justify-start overflow-x-auto relative shadow-[inset_0_0_100px_rgba(0,0,0,1)]">
+            <div className="flex-1 bg-slate-950 p-4 md:p-8 pb-12 flex items-start lg:items-center justify-start overflow-auto relative shadow-[inset_0_0_100px_rgba(0,0,0,1)]">
+              
               <div className="bg-[#1a1f2b] p-4 md:p-8 rounded-2xl shadow-[0_30px_60px_rgba(0,0,0,0.9),inset_0_2px_4px_rgba(255,255,255,0.1)] border-t-[12px] border-slate-700 flex gap-2 border-x-4 border-b-[12px] border-x-slate-800 border-b-slate-900 min-w-max relative overflow-hidden mb-8">
+                
                 {/* Top metallic plate effect */}
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
 
                 {/* Channels 1-8 */}
                 {channels.slice(0, 8).map((ch, i) => {
-                  const IconComp =
-                    ch.connected && cableTypes[ch.connected]
-                      ? cableTypes[ch.connected].icon
-                      : i % 2 === 0
-                      ? Mic2
-                      : Guitar;
-                  const isInst = ch.connected
-                    ? ch.connected !== 'mic1' && ch.connected !== 'mic2'
-                    : i % 2 !== 0;
-
+                  const IconComp = ch.connected && cableTypes[ch.connected] ? cableTypes[ch.connected].icon : (i % 2 === 0 ? Mic2 : Guitar);
+                  const isInst = ch.connected ? (ch.connected !== 'mic1' && ch.connected !== 'mic2') : (i % 2 !== 0);
+                  
                   return (
                     <ChannelStrip
-                      key={`ch-${i + 1}`}
-                      num={i + 1}
+                      key={`ch-${i+1}`}
+                      num={i+1}
                       state={ch}
                       updater={(k, v) => updateChannel(i, k, v)}
                       Icon={IconComp}
@@ -483,6 +392,13 @@ export default function App() {
                       highlightMap={currentHighlight}
                       disabled={false} // Unlocked!
                       power={power}
+                      selectedCable={selectedCable}
+                      onConnect={() => {
+                        if (selectedCable) {
+                          updateChannel(i, 'connected', selectedCable);
+                          setSelectedCable(null);
+                        }
+                      }}
                     />
                   );
                 })}
@@ -494,17 +410,14 @@ export default function App() {
 
                 {/* Channels 9/10 - 15/16 (Stereo) */}
                 {[9, 11, 13, 15].map((startNum) => {
-                  const i = startNum - 1;
-                  const ch = channels[i];
-                  const IconComp =
-                    ch.connected && cableTypes[ch.connected]
-                      ? cableTypes[ch.connected].icon
-                      : FileText;
+                   const i = startNum - 1;
+                   const ch = channels[i];
+                   const IconComp = ch.connected && cableTypes[ch.connected] ? cableTypes[ch.connected].icon : FileText;
 
-                  return (
-                    <ChannelStrip
+                   return (
+                     <ChannelStrip
                       key={`ch-${startNum}`}
-                      num={`${startNum}/${startNum + 1}`}
+                      num={`${startNum}/${startNum+1}`}
                       state={ch}
                       updater={(k, v) => updateChannel(i, k, v)}
                       Icon={IconComp}
@@ -512,8 +425,15 @@ export default function App() {
                       highlightMap={{}}
                       disabled={false} // Unlocked!
                       power={power}
+                      selectedCable={selectedCable}
+                      onConnect={() => {
+                        if (selectedCable) {
+                          updateChannel(i, 'connected', selectedCable);
+                          setSelectedCable(null);
+                        }
+                      }}
                     />
-                  );
+                   )
                 })}
 
                 {/* Divider */}

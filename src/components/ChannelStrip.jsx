@@ -14,7 +14,9 @@ export const ChannelStrip = ({
   highlightMap = {},
   disabled = false,
   power = false,
-  isVisualOnly = false
+  isVisualOnly = false,
+  selectedCable = null,
+  onConnect = null
 }) => {
   const isHigh = (key) => highlightMap[key] === true;
 
@@ -46,6 +48,10 @@ export const ChannelStrip = ({
                 highlight={isHigh(`jack${num}`)}
                 onDrop={(type) => handleUpdate('connected', type)}
                 onDisconnect={() => handleUpdate('connected', false)}
+                onClick={() => {
+                  if (!state.connected && selectedCable && onConnect) onConnect();
+                  else if (state.connected) handleUpdate('connected', false);
+                }}
               />
               <InputJack
                 type="line"
@@ -67,6 +73,10 @@ export const ChannelStrip = ({
             highlight={isHigh(`jack${num}`)}
             onDrop={(type) => handleUpdate('connected', type)}
             onDisconnect={() => handleUpdate('connected', false)}
+            onClick={() => {
+              if (!state.connected && selectedCable && onConnect) onConnect();
+              else if (state.connected) handleUpdate('connected', false);
+            }}
           />
         )}
       </div>

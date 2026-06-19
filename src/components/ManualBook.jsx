@@ -24,7 +24,6 @@ export const ManualBook = () => {
         {/* HEADER SECTION */}
         <div className="bg-slate-900 text-white p-10 md:p-16 text-center relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-600 via-emerald-500 to-yellow-500"></div>
-          <Sliders size={64} className="mx-auto mb-6 text-blue-400" />
           <h1 className="text-3xl md:text-5xl font-black uppercase tracking-widest mb-4 relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">
             Buku Panduan Operasional
           </h1>
@@ -166,7 +165,7 @@ export const ManualBook = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-12">
                   <div className="lg:col-span-4 bg-[#1a1f2b] p-8 flex justify-center items-center border-b lg:border-b-0 lg:border-r-[6px] border-slate-800 min-h-[220px] relative">
                     <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
-                    <div className="z-10 scale-125">
+                  <div className="z-10 scale-90 md:scale-125">
                       <Knob label="GAIN" colorClass="knob-cap-white" value={45} disabled={true} />
                     </div>
                   </div>
@@ -189,7 +188,7 @@ export const ManualBook = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-12">
                   <div className="lg:col-span-4 bg-[#1a1f2b] p-8 flex justify-center items-center border-b lg:border-b-0 lg:border-r-[6px] border-slate-800 min-h-[220px] relative">
                     <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
-                    <div className="z-10 scale-125">
+                  <div className="z-10 scale-90 md:scale-125">
                       <Knob label="COMP" colorClass="knob-cap-yellow" value={35} disabled={true} />
                     </div>
                   </div>
@@ -219,13 +218,13 @@ export const ManualBook = () => {
               <div className="grid grid-cols-1 lg:grid-cols-12">
                 <div className="lg:col-span-5 bg-[#1a1f2b] p-10 flex flex-col items-center justify-center gap-8 border-b lg:border-b-0 lg:border-r-[6px] border-slate-800 min-h-[400px] relative">
                   <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
-                  <div className="z-10 scale-125">
+                  <div className="z-10 scale-90 md:scale-125">
                     <Knob label="HIGH" colorClass="knob-cap-green" value={65} disabled={true} />
                   </div>
-                  <div className="z-10 scale-125">
+                  <div className="z-10 scale-90 md:scale-125">
                     <Knob label="MID" colorClass="knob-cap-green" value={45} disabled={true} />
                   </div>
-                  <div className="z-10 scale-125">
+                  <div className="z-10 scale-90 md:scale-125">
                     <Knob label="LOW" colorClass="knob-cap-green" value={50} disabled={true} />
                   </div>
                 </div>
@@ -270,7 +269,7 @@ export const ManualBook = () => {
               <div className="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden flex flex-col">
                 <div className="bg-[#1a1f2b] p-8 flex justify-center items-center border-b-[6px] border-slate-800 min-h-[180px] relative">
                   <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
-                  <div className="z-10 scale-125">
+                  <div className="z-10 scale-90 md:scale-125">
                     <Knob label="AUX 1" colorClass="knob-cap-blue" value={60} disabled={true} />
                   </div>
                 </div>
@@ -286,7 +285,7 @@ export const ManualBook = () => {
               <div className="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden flex flex-col">
                 <div className="bg-[#1a1f2b] p-8 flex justify-center items-center border-b-[6px] border-slate-800 min-h-[180px] relative">
                   <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
-                  <div className="z-10 scale-125">
+                  <div className="z-10 scale-90 md:scale-125">
                     <Knob label="PAN" colorClass="knob-cap-red" value={50} disabled={true} />
                   </div>
                 </div>
