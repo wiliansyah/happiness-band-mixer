@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Power, SlidersHorizontal, Activity, Mic2, Guitar, BookOpen, AlertTriangle, CheckCircle2, ChevronRight, ChevronLeft, ChevronUp, ChevronDown, Check, Plug, Disc3, Piano, FileText } from 'lucide-react';
+import { Power, SlidersHorizontal, Activity, Mic2, Guitar, BookOpen, AlertTriangle, CheckCircle2, ChevronRight, ChevronLeft, Check, Plug, Disc3, Piano, FileText, X } from 'lucide-react';
 import { ChannelStrip } from './components/ChannelStrip';
 import { MasterSection } from './components/MasterSection';
 import { ManualBook } from './components/ManualBook';
@@ -276,39 +276,38 @@ export default function App() {
           <>
             {/* LEFT PANEL */}
             <div className={`
-              absolute bottom-4 left-4 right-4 rounded-xl border-2 border-blue-500/50 shadow-[0_0_30px_rgba(0,0,0,0.8)] z-40 transition-all duration-300 flex flex-col bg-slate-900 shrink-0
-              lg:static lg:bottom-auto lg:left-auto lg:right-auto lg:w-[350px] lg:h-full lg:border-y-0 lg:border-l-0 lg:border-r-2 lg:border-slate-800 lg:rounded-none lg:shadow-2xl
-              ${isSopMinimized ? 'max-h-[50px] lg:max-h-none overflow-hidden' : 'max-h-[60vh] lg:max-h-none overflow-y-auto'}
+              w-full lg:w-[350px] bg-slate-900 border-b-2 lg:border-b-0 lg:border-r-2 border-slate-800 flex flex-col shadow-2xl z-10 shrink-0
+              ${activeScenario === 'menu' ? 'h-[35vh] lg:h-full' : 'h-auto max-h-[30vh] lg:h-full'}
             `}>
               
-              {/* Mobile Widget Header (Toggleable) */}
-              <div 
-                className="bg-slate-800 p-3 border-b border-slate-700 flex justify-between items-center lg:hidden sticky top-0 z-10 cursor-pointer shadow-md"
-                onClick={() => setIsSopMinimized(!isSopMinimized)}
-              >
-                <span className="font-bold text-sm text-blue-400 flex items-center gap-2">
-                  {activeScenario === 'menu' ? <><Activity size={16}/> Dashboard & Menu</> : <><BookOpen size={16}/> Panduan Aktif</>}
-                </span>
-                <button className="text-slate-400 hover:text-white transition-colors">
-                  {isSopMinimized ? <ChevronUp size={20}/> : <ChevronDown size={20}/>}
-                </button>
-              </div>
+              {/* Mobile Header for Menu State */}
+              {activeScenario === 'menu' && (
+                <div className="bg-slate-800 p-2 border-b border-slate-700 flex justify-between items-center lg:hidden">
+                  <span className="font-bold text-xs text-blue-400 flex items-center gap-2">
+                    <Activity size={14}/> Dashboard & Menu
+                  </span>
+                </div>
+              )}
 
               {/* Signal Dashboard */}
-              <div className={`p-4 bg-slate-950/50 border-b border-slate-800 ${activeScenario !== 'menu' ? 'hidden lg:block' : 'block'}`}>
-                <h2 className="text-xs font-bold text-emerald-500 uppercase mb-3 flex gap-2 items-center tracking-wider">
+              <div className={`p-2 lg:p-4 bg-slate-950/50 border-b border-slate-800 ${activeScenario !== 'menu' ? 'hidden lg:block' : 'block'}`}>
+                <h2 className="hidden lg:flex text-xs font-bold text-emerald-500 uppercase mb-3 gap-2 items-center tracking-wider">
                   <Activity size={16} /> Signal Monitor
                 </h2>
-                <div className="bg-[#11141c] p-4 rounded-xl border border-slate-800 shadow-inner">
-                  <div className="flex justify-between items-center mb-4">
-                    <span className="text-[11px] text-slate-500 font-bold tracking-wider">MAIN POWER</span>
-                    <span className={`text-[10px] font-black px-2 py-1 rounded shadow-inner ${power ? 'bg-green-500/20 text-green-400 border border-green-500/50' : 'bg-red-500/20 text-red-500 border border-red-500/50'}`}>
-                      {power ? 'ON' : 'OFF'}
-                    </span>
+                
+                <div className="space-y-3">
+                  <div className="bg-slate-900 rounded-lg p-3 border border-slate-700/50">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-[10px] font-bold text-slate-400">MAIN POWER</span>
+                      <span className={`text-[10px] font-black px-2 py-0.5 rounded ${power ? 'bg-red-500/20 text-red-400' : 'bg-slate-800 text-slate-500'}`}>
+                        {power ? 'ON' : 'OFF'}
+                      </span>
+                    </div>
                   </div>
-                  <div className="pt-3 border-t border-slate-800/80">
-                    <div className="flex justify-between items-end mb-2">
-                      <span className="text-[11px] text-slate-500 font-bold tracking-wider">SPEAKER OUT</span>
+                  
+                  <div className="bg-slate-900 rounded-lg p-3 border border-slate-700/50">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-[10px] font-bold text-slate-400">SPEAKER OUT</span>
                       {peakWarn && (
                         <span className="text-[10px] font-black text-red-500 animate-pulse flex items-center gap-1">
                           <AlertTriangle size={12} /> DISTORSI
@@ -324,9 +323,9 @@ export default function App() {
               </div>
 
               {/* SOP Panel */}
-              <div className="flex-1 p-5 flex flex-col overflow-y-auto">
+              <div className="flex-1 p-2 lg:p-5 flex flex-col overflow-y-auto">
                 {activeScenario === 'menu' ? (
-                  <div className="animate-in fade-in slide-in-from-bottom-2">
+                  <div className="animate-in fade-in slide-in-from-bottom-2 p-3 lg:p-0">
                     <h3 className="text-[13px] font-black text-slate-400 mb-4 flex items-center gap-2 tracking-widest uppercase">
                       <BookOpen size={16} /> Modul Latihan SOP
                     </h3>
@@ -338,12 +337,12 @@ export default function App() {
                             setActiveScenario(sc.id);
                             setSopStep(0);
                           }}
-                          className="text-left p-4 rounded-xl border border-slate-700 hover:border-blue-500 hover:bg-slate-800 transition-all flex items-center gap-4 bg-slate-800/50 shadow-md group"
+                          className="text-left p-3 lg:p-4 rounded-xl border border-slate-700 hover:border-blue-500 hover:bg-slate-800 transition-all flex items-center gap-3 lg:gap-4 bg-slate-800/50 shadow-md group"
                         >
-                          <div className="w-10 h-10 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner">
+                          <div className="w-8 h-8 lg:w-10 lg:h-10 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner shrink-0">
                             {sc.icon}
                           </div>
-                          <h4 className="font-bold text-slate-200 text-sm tracking-wide">
+                          <h4 className="font-bold text-slate-200 text-xs lg:text-sm tracking-wide">
                             {sc.title}
                           </h4>
                         </button>
@@ -351,24 +350,24 @@ export default function App() {
                     </div>
                   </div>
                 ) : (
-                  <div className="flex flex-col h-full justify-between animate-in fade-in slide-in-from-right-4">
+                  <div className="flex flex-col h-full justify-between animate-in fade-in slide-in-from-right-4 p-2 lg:p-0">
                     <div>
-                      <button
-                        onClick={() => setActiveScenario('menu')}
-                        className="text-[11px] font-bold text-blue-400 hover:text-blue-300 hover:underline mb-4 flex items-center gap-1 transition-colors"
-                      >
-                        <ChevronLeft size={12} /> Kembali ke Menu
-                      </button>
-                      <div className="mb-4 flex items-center justify-between">
-                        <span className="text-[10px] font-black bg-blue-600 text-white px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg border border-blue-400">
+                      <div className="flex items-center justify-between mb-2 lg:mb-4">
+                        <button
+                          onClick={() => setActiveScenario('menu')}
+                          className="text-[10px] lg:text-[11px] font-bold text-slate-400 hover:text-white mb-0 flex items-center gap-1 transition-colors bg-slate-800 lg:bg-transparent px-2 lg:px-0 py-1 lg:py-0 rounded"
+                        >
+                          <ChevronLeft size={12} /> <span className="hidden lg:inline">Kembali ke Menu</span><span className="lg:hidden">Keluar</span>
+                        </button>
+                        <span className="text-[10px] font-black bg-blue-600 text-white px-2 lg:px-3 py-1 lg:py-1.5 rounded-full uppercase tracking-widest shadow-lg border border-blue-400">
                           Tahap {sopStep + 1} / {scenarios[activeScenario].steps.length}
                         </span>
                       </div>
-                      <h3 className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 mb-4 leading-tight drop-shadow-md">
+                      <h3 className="text-sm lg:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 mb-2 lg:mb-4 leading-tight drop-shadow-md">
                         {scenarios[activeScenario].steps[sopStep].action}
                       </h3>
-                      <div className="bg-slate-800/80 p-5 rounded-xl border-l-4 border-blue-500 shadow-inner mb-6">
-                        <p className="text-[15px] font-medium text-slate-300 leading-relaxed">
+                      <div className="bg-slate-800/80 p-3 lg:p-5 rounded-lg lg:rounded-xl border-l-2 lg:border-l-4 border-blue-500 shadow-inner mb-3 lg:mb-6">
+                        <p className="text-[11px] lg:text-[15px] font-medium text-slate-300 leading-relaxed">
                           {scenarios[activeScenario].steps[sopStep].desc}
                         </p>
                       </div>
