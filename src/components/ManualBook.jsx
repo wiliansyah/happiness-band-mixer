@@ -133,7 +133,7 @@ export const ManualBook = () => {
               {/* PAD & HPF */}
               <div className="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden">
                 <div className="grid grid-cols-1 lg:grid-cols-12">
-                  <div className="lg:col-span-4 bg-[#1a1f2b] p-8 flex justify-center items-center gap-8 border-b lg:border-b-0 lg:border-r-[6px] border-slate-800 min-h-[200px] relative">
+                  <div className="lg:col-span-4 bg-[#1a1f2b] p-8 flex justify-center items-center gap-8 border-b lg:border-b-0 lg:border-r-[6px] border-slate-800 min-h-[150px] md:min-h-[200px] relative">
                     <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
                     <div className="z-10 flex flex-col items-center gap-2">
                       <ToggleBtn label="PAD" type="small-rect" active={false} disabled={true} />
@@ -163,7 +163,7 @@ export const ManualBook = () => {
               {/* GAIN */}
               <div className="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden">
                 <div className="grid grid-cols-1 lg:grid-cols-12">
-                  <div className="lg:col-span-4 bg-[#1a1f2b] p-8 flex justify-center items-center border-b lg:border-b-0 lg:border-r-[6px] border-slate-800 min-h-[220px] relative">
+                  <div className="lg:col-span-4 bg-[#1a1f2b] p-8 flex justify-center items-center border-b lg:border-b-0 lg:border-r-[6px] border-slate-800 min-h-[160px] md:min-h-[220px] relative">
                     <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
                   <div className="z-10 scale-90 md:scale-125">
                       <Knob label="GAIN" colorClass="knob-cap-white" value={45} disabled={true} />
@@ -186,7 +186,7 @@ export const ManualBook = () => {
               {/* COMPRESSOR */}
               <div className="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden">
                 <div className="grid grid-cols-1 lg:grid-cols-12">
-                  <div className="lg:col-span-4 bg-[#1a1f2b] p-8 flex justify-center items-center border-b lg:border-b-0 lg:border-r-[6px] border-slate-800 min-h-[220px] relative">
+                  <div className="lg:col-span-4 bg-[#1a1f2b] p-8 flex justify-center items-center border-b lg:border-b-0 lg:border-r-[6px] border-slate-800 min-h-[160px] md:min-h-[220px] relative">
                     <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
                   <div className="z-10 scale-90 md:scale-125">
                       <Knob label="COMP" colorClass="knob-cap-yellow" value={35} disabled={true} />
@@ -216,7 +216,7 @@ export const ManualBook = () => {
 
             <div className="bg-white rounded-3xl border border-slate-200 shadow-md overflow-hidden">
               <div className="grid grid-cols-1 lg:grid-cols-12">
-                <div className="lg:col-span-5 bg-[#1a1f2b] p-10 flex flex-col items-center justify-center gap-8 border-b lg:border-b-0 lg:border-r-[6px] border-slate-800 min-h-[400px] relative">
+                <div className="lg:col-span-5 bg-[#1a1f2b] p-10 flex flex-col items-center justify-center gap-8 border-b lg:border-b-0 lg:border-r-[6px] border-slate-800 min-h-[250px] md:min-h-[400px] relative">
                   <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
                   <div className="z-10 scale-90 md:scale-125">
                     <Knob label="HIGH" colorClass="knob-cap-green" value={65} disabled={true} />
@@ -267,7 +267,7 @@ export const ManualBook = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* AUX */}
               <div className="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden flex flex-col">
-                <div className="bg-[#1a1f2b] p-8 flex justify-center items-center border-b-[6px] border-slate-800 min-h-[180px] relative">
+                <div className="bg-[#1a1f2b] p-8 flex justify-center items-center border-b-[6px] border-slate-800 min-h-[140px] md:min-h-[180px] relative">
                   <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
                   <div className="z-10 scale-90 md:scale-125">
                     <Knob label="AUX 1" colorClass="knob-cap-blue" value={60} disabled={true} />
@@ -283,7 +283,7 @@ export const ManualBook = () => {
 
               {/* PAN */}
               <div className="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden flex flex-col">
-                <div className="bg-[#1a1f2b] p-8 flex justify-center items-center border-b-[6px] border-slate-800 min-h-[180px] relative">
+                <div className="bg-[#1a1f2b] p-8 flex justify-center items-center border-b-[6px] border-slate-800 min-h-[140px] md:min-h-[180px] relative">
                   <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
                   <div className="z-10 scale-90 md:scale-125">
                     <Knob label="PAN" colorClass="knob-cap-red" value={50} disabled={true} />
@@ -314,10 +314,10 @@ export const ManualBook = () => {
               <div className="grid grid-cols-1 lg:grid-cols-12">
                 
                 {/* Visual Fader Box */}
-                <div className="lg:col-span-5 bg-[#1a1f2b] p-10 flex justify-center items-end gap-6 border-b lg:border-b-0 lg:border-r-[6px] border-slate-800 min-h-[450px] relative">
+                <div className="lg:col-span-5 bg-[#1a1f2b] p-10 flex justify-center items-end gap-6 border-b lg:border-b-0 lg:border-r-[6px] border-slate-800 min-h-[300px] md:min-h-[450px] relative">
                   <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-black/50"></div>
                   
-                  <div className="z-10 flex flex-col items-center gap-5">
+                  <div className="z-10 flex flex-col items-center gap-5 scale-90 md:scale-100 origin-bottom">
                     <ToggleBtn label="ON" activeColor="bg-orange-500 shadow-[0_0_15px_orange]" active={true} disabled={true} />
                     <ToggleBtn label="ST" activeColor="bg-red-500 shadow-[0_0_15px_red]" active={true} disabled={true} type="small-rect" />
                     <div className="mt-4">
@@ -325,9 +325,9 @@ export const ManualBook = () => {
                     </div>
                   </div>
 
-                  <div className="z-10 w-1 h-[280px] bg-slate-700/50 rounded-full mx-2 border-r border-white/5"></div>
+                  <div className="z-10 w-1 h-[250px] md:h-[280px] bg-slate-700/50 rounded-full mx-2 border-r border-white/5"></div>
 
-                  <div className="z-10 flex flex-col items-center justify-end h-full">
+                  <div className="z-10 flex flex-col items-center justify-end h-full scale-90 md:scale-100 origin-bottom">
                     <Fader label="STEREO" capType="red" value={80} disabled={true} />
                   </div>
                 </div>

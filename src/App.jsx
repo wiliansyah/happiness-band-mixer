@@ -187,7 +187,10 @@ export default function App() {
     return (
       <div 
         draggable="true"
-        onDragStart={(e) => e.dataTransfer.setData('cableType', type)}
+        onDragStart={(e) => {
+          e.dataTransfer.setData('cableType', type);
+          setSelectedCable(null);
+        }}
         onClick={() => setSelectedCable(isSelected ? null : type)}
         className={`flex flex-col items-center cursor-pointer transition-transform shrink-0 rounded-lg p-1 ${isSelected ? 'scale-110 bg-slate-700 ring-2 ring-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.5)]' : 'hover:scale-110'}`}
         title={`Pilih kabel ${cable.label} lalu ketuk colokan`}
@@ -203,29 +206,29 @@ export default function App() {
 
   return (
     <div className="min-h-[100dvh] h-[100dvh] bg-[#0f172a] flex flex-col font-sans overflow-hidden text-slate-300">
-      <header className="bg-slate-900 border-b-2 border-slate-700/50 p-3 shadow-xl flex justify-between items-center z-20 shrink-0 flex-wrap gap-4">
-        <div className="flex items-center gap-3">
-          <SlidersHorizontal size={24} className="text-blue-500" />
-          <h1 className="text-sm md:text-lg font-black tracking-widest text-slate-200">
-            YAMAHA MG16XU SIMULATOR
+      <header className="bg-slate-900 border-b-2 border-slate-700/50 p-2 md:p-3 shadow-xl flex justify-between items-center z-20 shrink-0 gap-2">
+        <div className="flex items-center gap-2 md:gap-3 shrink-0">
+          <SlidersHorizontal className="text-blue-500 w-5 h-5 md:w-6 md:h-6" />
+          <h1 className="text-[10px] sm:text-xs md:text-lg font-black tracking-widest text-slate-200 leading-tight">
+            MG16XU <span className="hidden sm:inline">SIMULATOR</span>
           </h1>
         </div>
         
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-2 md:gap-4 items-center overflow-x-auto pb-1 md:pb-0 hide-scrollbar justify-end">
           <button 
             onClick={() => setViewMode(viewMode === 'mixer' ? 'manual' : 'mixer')}
-            className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-2 rounded-lg border border-slate-600 transition-colors shadow-md text-sm font-bold"
+            className="flex items-center gap-1 md:gap-2 bg-slate-800 hover:bg-slate-700 text-slate-300 px-2 md:px-4 py-1.5 md:py-2 rounded-lg border border-slate-600 transition-colors shadow-md text-[10px] md:text-sm font-bold shrink-0 whitespace-nowrap"
           >
             {viewMode === 'mixer' ? (
-              <><FileText size={16} /> Baca Manual</>
+              <><FileText size={14} className="md:w-4 md:h-4" /> <span className="hidden sm:inline">Baca Manual</span><span className="sm:hidden">Manual</span></>
             ) : (
-              <><SlidersHorizontal size={16} /> Kembali ke Mixer</>
+              <><SlidersHorizontal size={14} className="md:w-4 md:h-4" /> <span className="hidden sm:inline">Kembali ke Mixer</span><span className="sm:hidden">Mixer</span></>
             )}
           </button>
 
           {/* Cable Rack */}
-          <div className="flex gap-3 items-center bg-slate-800 p-2 rounded-lg border border-slate-700 shadow-inner overflow-x-auto max-w-[50vw]">
-            <span className="text-xs font-bold text-slate-500 flex items-center gap-1">
+          <div className="flex gap-2 items-center bg-slate-800 p-1.5 md:p-2 rounded-lg border border-slate-700 shadow-inner shrink-0">
+            <span className="hidden md:flex text-xs font-bold text-slate-500 items-center gap-1">
               <Plug size={14} /> RAK KABEL:
             </span>
             {Object.keys(cableTypes).map(type => <DraggableCable key={type} type={type} />)}
@@ -239,7 +242,7 @@ export default function App() {
         ) : (
           <>
             {/* LEFT PANEL */}
-            <div className="w-full lg:w-[350px] bg-slate-900 border-b-2 lg:border-b-0 lg:border-r-2 border-slate-800 flex flex-col shadow-2xl z-10 shrink-0 h-[280px] lg:h-full overflow-y-auto">
+            <div className="w-full lg:w-[350px] bg-slate-900 border-b-2 lg:border-b-0 lg:border-r-2 border-slate-800 flex flex-col shadow-2xl z-10 shrink-0 h-[220px] md:h-[300px] lg:h-full overflow-y-auto">
               {/* Signal Dashboard */}
               <div className="p-4 bg-slate-950/50 border-b border-slate-800">
                 <h2 className="text-xs font-bold text-emerald-500 uppercase mb-3 flex gap-2 items-center tracking-wider">
