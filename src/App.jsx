@@ -378,6 +378,23 @@ export default function App() {
                           </div>
                         </button>
                       ))}
+                      
+                      <button
+                        onClick={() => setViewMode('manual')}
+                        className="text-left p-5 rounded-2xl border border-blue-500/50 hover:border-blue-400 bg-blue-900/20 hover:bg-blue-900/40 transition-all flex items-center gap-5 shadow-xl group hover:shadow-blue-500/20 mt-2"
+                      >
+                        <div className="w-12 h-12 rounded-full bg-blue-950/80 border border-blue-500/50 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner shrink-0">
+                          <FileText size={24} className="text-blue-400" />
+                        </div>
+                        <div>
+                          <h4 className="font-bold text-blue-300 text-base tracking-wide mb-1 transition-colors">
+                            Buku Panduan Lengkap
+                          </h4>
+                          <p className="text-xs text-blue-400/70 font-medium">
+                            Pelajari anatomi & fungsi setiap tombol
+                          </p>
+                        </div>
+                      </button>
                     </div>
                   </div>
                 ) : (
