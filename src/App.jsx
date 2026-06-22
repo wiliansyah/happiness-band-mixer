@@ -260,8 +260,8 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-[100dvh] h-[100dvh] bg-[#0f172a] flex flex-col font-sans overflow-hidden text-slate-300">
-      <header className="bg-slate-900 border-b-2 border-slate-700/50 p-2 md:p-3 shadow-xl flex justify-between items-center z-20 shrink-0 gap-2">
+    <div className="min-h-[100dvh] h-[100dvh] bg-[#0f172a] flex flex-col font-sans overflow-hidden text-slate-300 print:min-h-auto print:h-auto print:overflow-visible print:block">
+      <header className="bg-slate-900 border-b-2 border-slate-700/50 p-2 md:p-3 shadow-xl flex justify-between items-center z-20 shrink-0 gap-2 print:hidden">
         <div className="flex items-center gap-2 md:gap-3 shrink-0">
           <SlidersHorizontal className="text-blue-500 w-5 h-5 md:w-6 md:h-6" />
           <h1 className="text-[10px] sm:text-xs md:text-lg font-black tracking-widest text-slate-200 leading-tight">
@@ -291,7 +291,7 @@ export default function App() {
         </div>
       </header>
 
-      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden relative">
+      <div className="flex-1 flex flex-col lg:flex-row overflow-hidden relative print:overflow-visible print:block">
         {viewMode === 'manual' ? (
           <ManualBook />
         ) : (

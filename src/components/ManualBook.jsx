@@ -10,7 +10,7 @@ export const ManualBook = () => {
   };
 
   return (
-    <div className="flex-1 bg-slate-200 overflow-y-auto p-4 md:p-8 relative font-sans">
+    <div className="flex-1 bg-slate-200 overflow-y-auto p-4 md:p-8 relative font-sans print:overflow-visible print:p-0 print:bg-white print:block">
       <button 
         onClick={handlePrint}
         className="fixed bottom-8 right-8 bg-blue-600 hover:bg-blue-700 text-white px-6 py-4 rounded-full shadow-2xl flex items-center gap-3 font-black tracking-wider transition-all hover:scale-105 z-50 print:hidden border-2 border-white/20"
@@ -19,7 +19,7 @@ export const ManualBook = () => {
         CETAK DOKUMEN
       </button>
 
-      <div className="max-w-5xl mx-auto bg-white shadow-2xl rounded-xl text-slate-800 leading-relaxed print:shadow-none print:bg-white print:text-black overflow-hidden border border-slate-300">
+      <div className="max-w-5xl mx-auto bg-white shadow-2xl rounded-xl text-slate-800 leading-relaxed print:shadow-none print:bg-white print:text-black print:overflow-visible print:border-none overflow-hidden border border-slate-300">
         
         {/* HEADER SECTION */}
         <div className="bg-slate-900 text-white p-6 md:p-16 text-center relative overflow-hidden">
