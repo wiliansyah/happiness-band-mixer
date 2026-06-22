@@ -300,7 +300,7 @@ export default function App() {
             <div className={`
               ${activeScenario === 'menu' 
                 ? 'absolute inset-0 z-50 bg-slate-900/95 backdrop-blur-sm flex flex-col items-center justify-center p-4 lg:p-12 overflow-y-auto' 
-                : 'w-full lg:w-[350px] bg-slate-900 border-b-2 lg:border-b-0 lg:border-r-2 border-slate-800 flex flex-col shadow-2xl z-10 shrink-0 h-auto max-h-[30vh] lg:h-full'
+                : 'w-full lg:w-[350px] bg-slate-900 border-b-2 lg:border-b-0 lg:border-r-2 border-slate-800 flex flex-col shadow-2xl z-10 shrink-0 h-auto max-h-[40vh] lg:max-h-full lg:h-full'
               }
             `}>
               
@@ -356,6 +356,24 @@ export default function App() {
                       <BookOpen size={18} className="text-blue-500" /> Pilih Modul Latihan
                     </h3>
                     <div className="flex flex-col gap-4">
+                      
+                      <button
+                        onClick={() => setViewMode('manual')}
+                        className="text-left p-5 rounded-2xl border border-blue-500/50 hover:border-blue-400 bg-blue-900/20 hover:bg-blue-900/40 transition-all flex items-center gap-5 shadow-xl group hover:shadow-blue-500/20 mb-2"
+                      >
+                        <div className="w-12 h-12 rounded-full bg-blue-950/80 border border-blue-500/50 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner shrink-0">
+                          <FileText size={24} className="text-blue-400" />
+                        </div>
+                        <div>
+                          <h4 className="font-bold text-blue-300 text-base tracking-wide mb-1 transition-colors">
+                            Buku Panduan Lengkap
+                          </h4>
+                          <p className="text-xs text-blue-400/70 font-medium">
+                            Pelajari anatomi & fungsi setiap tombol
+                          </p>
+                        </div>
+                      </button>
+
                       {Object.values(scenarios).map((sc) => (
                         <button
                           key={sc.id}
@@ -378,23 +396,13 @@ export default function App() {
                           </div>
                         </button>
                       ))}
-                      
-                      <button
-                        onClick={() => setViewMode('manual')}
-                        className="text-left p-5 rounded-2xl border border-blue-500/50 hover:border-blue-400 bg-blue-900/20 hover:bg-blue-900/40 transition-all flex items-center gap-5 shadow-xl group hover:shadow-blue-500/20 mt-2"
-                      >
-                        <div className="w-12 h-12 rounded-full bg-blue-950/80 border border-blue-500/50 flex items-center justify-center group-hover:scale-110 transition-transform shadow-inner shrink-0">
-                          <FileText size={24} className="text-blue-400" />
-                        </div>
-                        <div>
-                          <h4 className="font-bold text-blue-300 text-base tracking-wide mb-1 transition-colors">
-                            Buku Panduan Lengkap
-                          </h4>
-                          <p className="text-xs text-blue-400/70 font-medium">
-                            Pelajari anatomi & fungsi setiap tombol
-                          </p>
-                        </div>
-                      </button>
+
+                      <div className="mt-6 p-4 rounded-xl bg-red-900/20 border border-red-500/30 flex items-start gap-3">
+                        <AlertTriangle size={20} className="text-red-400 shrink-0 mt-0.5" />
+                        <p className="text-xs text-red-200/80 leading-relaxed font-medium">
+                          Setelah menggunakan, pastikan semua alat kembali OFF, matikan lampu, dan matikan AC di ruangan.
+                        </p>
+                      </div>
                     </div>
                   </div>
                 ) : (
@@ -414,7 +422,7 @@ export default function App() {
                       <h3 className="text-sm lg:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 mb-2 lg:mb-4 leading-tight drop-shadow-md">
                         {scenarios[activeScenario].steps[sopStep].action}
                       </h3>
-                      <div className="bg-slate-800/80 p-3 lg:p-5 rounded-lg lg:rounded-xl border-l-2 lg:border-l-4 border-blue-500 shadow-inner mb-3 lg:mb-6">
+                      <div className="bg-slate-800/80 p-3 lg:p-5 rounded-lg lg:rounded-xl border-l-2 lg:border-l-4 border-blue-500 shadow-inner mb-3 lg:mb-6 shrink-0">
                         <p className="text-[11px] lg:text-[15px] font-medium text-slate-300 leading-relaxed">
                           {scenarios[activeScenario].steps[sopStep].desc}
                         </p>
