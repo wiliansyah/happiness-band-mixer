@@ -143,13 +143,7 @@ export default function App() {
           check: () => channels[0].fader <= 5 && channels[1].fader <= 5 && faderMaster <= 5,
           targetId: 'fader-master'
         },
-        {
-          action: 'Colok Kabel Input',
-          desc: 'Pilih kabel Mic 1 (Biru) lalu ketuk lubang CH 1. Pilih kabel Mic 2 (Merah) lalu ketuk lubang CH 2.',
-          highlight: { jack1: true, jack2: true },
-          check: () => channels[0].connected === 'mic1' && channels[1].connected === 'mic2',
-          targetId: 'jack-1'
-        },
+
         {
           action: 'Nyalakan Power Mixer',
           desc: 'Tekan tombol POWER utama di sisi kanan.',
@@ -213,13 +207,7 @@ export default function App() {
           check: () => power === false,
           targetId: 'btn-main-power'
         },
-        {
-          action: 'Cabut Kabel',
-          desc: 'Ketuk lubang CH 1 dan CH 2 untuk mencabut kabel.',
-          highlight: { jack1: true, jack2: true },
-          check: () => !channels[0].connected && !channels[1].connected,
-          targetId: 'jack-1'
-        },
+
       ],
     },
   };
@@ -380,6 +368,19 @@ export default function App() {
                           onClick={() => {
                             setActiveScenario(sc.id);
                             setSopStep(0);
+                            if (sc.id === 'powerOn') {
+                              setPower(false);
+                              setFaderMaster(70);
+                              setChannels(prev => prev.map((ch, i) => i < 2 ? { ...ch, connected: `mic${i+1}`, fader: 50, on: false, st: false, pad: false, hpf: false } : { ...ch, connected: false }));
+                            } else if (sc.id === 'micCheck') {
+                              setPower(true);
+                              setFaderMaster(0);
+                              setChannels(prev => prev.map((ch, i) => i < 2 ? { ...ch, connected: `mic${i+1}`, fader: 0, on: false, st: false, pad: false, hpf: false } : { ...ch, connected: false }));
+                            } else if (sc.id === 'powerOff') {
+                              setPower(true);
+                              setFaderMaster(70);
+                              setChannels(prev => prev.map((ch, i) => i < 2 ? { ...ch, connected: `mic${i+1}`, fader: 50, on: true, st: true, pad: false, hpf: false } : { ...ch, connected: false }));
+                            }
                           }}
                           className="text-left p-5 rounded-2xl border border-slate-700 hover:border-blue-500 hover:bg-slate-800/80 transition-all flex items-center gap-5 bg-slate-900 shadow-xl group hover:shadow-blue-500/10"
                         >

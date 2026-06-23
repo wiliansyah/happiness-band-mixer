@@ -39,7 +39,7 @@ export const ManualBook = () => {
         <div className="p-6 md:p-12 space-y-16 bg-slate-50">
           
           {/* PERINGATAN RISIKO */}
-          <div className="bg-red-50 border-l-[8px] border-red-600 p-5 md:p-8 rounded-r-xl shadow-md relative overflow-hidden flex flex-col md:flex-row gap-4 md:gap-6 items-center md:items-start">
+          <div className="bg-red-50 border-l-[8px] border-red-600 p-5 md:p-8 rounded-r-xl shadow-md relative overflow-hidden flex flex-col md:flex-row gap-4 md:gap-6 items-center md:items-start print:break-inside-avoid">
             <div className="bg-red-100 p-4 md:p-5 rounded-full shrink-0 shadow-inner">
               <ShieldAlert size={48} className="text-red-600" />
             </div>
@@ -66,14 +66,13 @@ export const ManualBook = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {/* FASE 1 */}
-              <div className="bg-white p-5 md:p-8 rounded-2xl border border-slate-200 shadow-lg flex flex-col gap-4 md:gap-6 relative overflow-hidden">
+              <div className="bg-white p-5 md:p-8 rounded-2xl border border-slate-200 shadow-lg flex flex-col gap-4 md:gap-6 relative overflow-hidden print:break-inside-avoid">
                 <div className="absolute top-0 left-0 w-full h-2 bg-emerald-500"></div>
                 <h3 className="text-xl font-black text-emerald-700 tracking-widest text-center border-b border-slate-100 pb-4">
                   FASE 1: TURN ON
                 </h3>
                 <ol className="list-decimal pl-5 space-y-4 text-slate-700 font-bold text-md">
                   <li className="pl-2">Tarik <span className="text-red-600 font-black">Semua Fader</span> ke dasar (0).</li>
-                  <li className="pl-2">Colok kabel Instrumen/Mic.</li>
                   <li className="pl-2">Tekan tombol <span className="bg-slate-800 text-white px-2 py-1 rounded text-xs">POWER MIXER</span>.</li>
                   <li className="pl-2">Nyalakan Power Amp / Speaker.</li>
                 </ol>
@@ -83,7 +82,7 @@ export const ManualBook = () => {
               </div>
 
               {/* FASE 2 */}
-              <div className="bg-white p-5 md:p-8 rounded-2xl border border-slate-200 shadow-lg flex flex-col gap-4 md:gap-6 relative overflow-hidden">
+              <div className="bg-white p-5 md:p-8 rounded-2xl border border-slate-200 shadow-lg flex flex-col gap-4 md:gap-6 relative overflow-hidden print:break-inside-avoid">
                 <div className="absolute top-0 left-0 w-full h-2 bg-blue-500"></div>
                 <h3 className="text-xl font-black text-blue-700 tracking-widest text-center border-b border-slate-100 pb-4">
                   FASE 2: SOUNDCHECK
@@ -100,7 +99,7 @@ export const ManualBook = () => {
               </div>
 
               {/* FASE 3 */}
-              <div className="bg-white p-5 md:p-8 rounded-2xl border border-slate-200 shadow-lg flex flex-col gap-4 md:gap-6 relative overflow-hidden">
+              <div className="bg-white p-5 md:p-8 rounded-2xl border border-slate-200 shadow-lg flex flex-col gap-4 md:gap-6 relative overflow-hidden print:break-inside-avoid">
                 <div className="absolute top-0 left-0 w-full h-2 bg-red-500"></div>
                 <h3 className="text-xl font-black text-red-700 tracking-widest text-center border-b border-slate-100 pb-4">
                   FASE 3: TURN OFF
@@ -109,7 +108,6 @@ export const ManualBook = () => {
                   <li className="pl-2">Tarik turun <span className="text-red-600 font-black">Semua Fader</span> ke 0.</li>
                   <li className="pl-2">Matikan Power Amp / Speaker.</li>
                   <li className="pl-2">Matikan <span className="bg-slate-800 text-white px-2 py-1 rounded text-xs">POWER MIXER</span>.</li>
-                  <li className="pl-2">Cabut seluruh kabel.</li>
                 </ol>
                 <div className="mt-auto p-4 bg-slate-50 rounded-xl border border-slate-200 text-sm font-medium text-slate-600 text-center">
                   Speaker dimatikan awal agar tidak menangkap letupan listrik mati.
@@ -131,7 +129,7 @@ export const ManualBook = () => {
 
             <div className="space-y-8">
               {/* PAD & HPF */}
-              <div className="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden">
+              <div className="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden print:break-inside-avoid">
                 <div className="grid grid-cols-1 lg:grid-cols-12">
                   <div className="lg:col-span-4 bg-[#1a1f2b] p-8 flex justify-center items-center gap-8 border-b lg:border-b-0 lg:border-r-[6px] border-slate-800 min-h-[150px] md:min-h-[200px] relative">
                     <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
@@ -161,7 +159,7 @@ export const ManualBook = () => {
               </div>
 
               {/* GAIN */}
-              <div className="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden">
+              <div className="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden print:break-inside-avoid">
                 <div className="grid grid-cols-1 lg:grid-cols-12">
                   <div className="lg:col-span-4 bg-[#1a1f2b] p-8 flex justify-center items-center border-b lg:border-b-0 lg:border-r-[6px] border-slate-800 min-h-[160px] md:min-h-[220px] relative">
                     <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
@@ -184,7 +182,7 @@ export const ManualBook = () => {
               </div>
 
               {/* COMPRESSOR */}
-              <div className="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden">
+              <div className="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden print:break-inside-avoid">
                 <div className="grid grid-cols-1 lg:grid-cols-12">
                   <div className="lg:col-span-4 bg-[#1a1f2b] p-8 flex justify-center items-center border-b lg:border-b-0 lg:border-r-[6px] border-slate-800 min-h-[160px] md:min-h-[220px] relative">
                     <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
@@ -266,7 +264,7 @@ export const ManualBook = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* AUX */}
-              <div className="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden flex flex-col">
+              <div className="bg-white rounded-2xl border border-slate-200 shadow-md overflow-hidden flex flex-col print:break-inside-avoid">
                 <div className="bg-[#1a1f2b] p-8 flex justify-center items-center border-b-[6px] border-slate-800 min-h-[140px] md:min-h-[180px] relative">
                   <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent"></div>
                   <div className="z-10 scale-90 md:scale-125">
